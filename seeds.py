@@ -15,8 +15,8 @@ with db_session():
     )
 
     # orders
-    Order(location="Franco Manca", postcode="GH12 7LL", delivery_method="courier pigeon", contents="food")
-    Order(location="Gap", postcode="E9 7HN", delivery_method="van", contents="clothes")
+    Order(location="Franco Manca", postcode="GH12 7LL", delivery_method="courier pigeon", contents="food", user=kreeda)
+    Order(location="Gap", postcode="E9 7HN", delivery_method="van", contents="clothes", user=kreeda)
 
     # save the data to the database
     db.commit()

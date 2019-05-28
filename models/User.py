@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
-import bcrypt
 import jwt
+import bcrypt
 from pony.orm import Required, Set
 from marshmallow import Schema, fields, post_load, validates_schema, ValidationError
 from app import db
@@ -10,7 +10,7 @@ class User(db.Entity):
     username = Required(str, unique=True)
     email = Required(str, unique=True)
     password_hash = Required(str)
-    #orders = Set('Order')
+    orders = Set('Order')
 
     # A function that any `user` can perform
     def is_password_valid(self, plaintext):
@@ -38,7 +38,7 @@ class UserSchema(Schema):
     email = fields.Str(required=True)
     password = fields.Str(load_only=True)
     password_confirmation = fields.Str(load_only=True)
-    #orders = fields.Nested('OrderSchema', many=True, exclude=('user',))
+    # orders = fields.Nested('OrderSchema', many=True, exclude=('user',))
 
     # basic method
     def generate_hash(self, plaintext):

@@ -7,6 +7,7 @@ class Order(db.Entity):
     postcode = Required(str)
     delivery_method = Required(str)
     contents = Optional(str)
+    user = Required('User')
 
 class OrderSchema(Schema):
     id = fields.Int(dump_only=True)
@@ -14,3 +15,4 @@ class OrderSchema(Schema):
     postcode = fields.String(required=True)
     delivery_method = fields.String(required=True)
     contents = fields.String()
+    user = fields.Nested('UserSchema')

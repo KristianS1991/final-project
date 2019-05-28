@@ -1,8 +1,9 @@
-from flask import Blueprint, jsonify, request, abort
+from flask import Blueprint, jsonify, request, abort, g
 from marshmallow import ValidationError
 from pony.orm import db_session
 from models.Order import Order, OrderSchema
 from app import db
+from lib.secure_route import secure_route
 
 router = Blueprint(__name__, 'orders')
 
@@ -30,11 +31,13 @@ def show(order_id):
 # create route for creating an order
 @router.route('/orders', methods=['POST'])
 @db_session
+@secure_route
 def create():
     schema = OrderSchema()
 
     try:
         data = schema.load(request.get_json())
+        data['user'] = g.current_user
         order = Order(**data)
         db.commit()
     except ValidationError as err:
@@ -45,6 +48,7 @@ def create():
 #update route for updating an order
 @router.route('/orders/<int:order_id>', methods=['PUT'])
 @db_session
+@secure_route
 def update(order_id):
     schema = OrderSchema()
     order = Order.get(id=order_id)
@@ -64,6 +68,7 @@ def update(order_id):
 #delete route - delete an order
 @router.route('/orders/<int:order_id>', methods=['DELETE'])
 @db_session
+@secure_route
 def delete(order_id):
     order = Order.get(id=order_id)
 
