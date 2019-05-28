@@ -1,6 +1,7 @@
 from pony.orm import db_session
 from app import db
-from models.Order import Order
+from models.Trip import Trip
+from models.Location import Location
 from models.User import User, UserSchema
 
 db.drop_all_tables(with_all_data=True)
@@ -14,9 +15,15 @@ with db_session():
         password_hash=schema.generate_hash('pass')
     )
 
-    # orders
-    Order(location="Franco Manca", postcode="GH12 7LL", delivery_method="courier pigeon", contents="food", user=kreeda)
-    Order(location="Gap", postcode="E9 7HN", delivery_method="van", contents="clothes", user=kreeda)
+    # Trips
+    trip_one = Trip(name="Trip One", user=kreeda)
+    trip_two = Trip(name="Trip Two", user=kreeda)
+
+    # Locations
+    location_one = Location(name="Taj Mahal", postcode="e4 7hj", trip=trip_one)
+    location_two = Location(name="Arizona", postcode="e5 4gf", trip=trip_one)
+    location_three = Location(name="Jacksonville", postcode="f6 7hj", trip=trip_one)
+
 
     # save the data to the database
     db.commit()

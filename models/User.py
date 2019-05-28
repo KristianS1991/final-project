@@ -10,7 +10,7 @@ class User(db.Entity):
     username = Required(str, unique=True)
     email = Required(str, unique=True)
     password_hash = Required(str)
-    orders = Set('Order')
+    trips = Set('Trip')
 
     # A function that any `user` can perform
     def is_password_valid(self, plaintext):
