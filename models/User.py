@@ -38,7 +38,7 @@ class UserSchema(Schema):
     email = fields.Str(required=True)
     password = fields.Str(load_only=True)
     password_confirmation = fields.Str(load_only=True)
-    # orders = fields.Nested('OrderSchema', many=True, exclude=('user',))
+    trips = fields.Nested('TripSchema', many=True, exclude=('user',))
 
     # basic method
     def generate_hash(self, plaintext):

@@ -1,21 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const TripCard = ({ content, user }) => {
+const TripCard = ({ id, name, locations }) => {
+  
+  //Change the link below to reroute to the specific trip, maybe put in loop
   return (
-    <Link to ={`/users/${user._id}`}>
+    <Link to ={`/users/${id}`}>
       <article className="media">
-
-
-        <figure className="media-left">
-          <img className="image-comment" src={user.image} alt={user.username}/>
-        </figure>
         <div className="media-content">
           <div className="content">
             <p>
-              <strong>{user.username}</strong> <small>{content.createdAt}</small>
-              <br/>
-              {content}
+              <strong>{name}</strong>
+              {locations.map(location =>
+                <small key={location.id}>{location.name}</small>
+              )}
             </p>
           </div>
         </div>

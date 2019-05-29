@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Auth from '../lib/Auth'
 import Loading from './Loading'
-//import TripCard from './TripCard'
+import TripCard from './TripCard'
 
 class UserDisplay extends React.Component {
 
@@ -82,11 +82,11 @@ class UserDisplay extends React.Component {
               <div className="container">
 
                 <div className="column is-desktop">
-                  {/*}{this.state.user.comments.map(trip =>
-                    <div key={trip._id}>
+                  {this.state.user.trips.map(trip =>
+                    <div key={trip.id}>
                       <TripCard {...trip} />
                     </div>
-                  )}*/}
+                  )}
                 </div>
               </div>
               || 'You haven\'t planend any trips yet.'}

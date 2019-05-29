@@ -8,7 +8,7 @@ class Location(db.Entity):
     trip = Required('Trip')
 
 class LocationSchema(Schema):
-    #id = fields.Int(dump_only=True)
+    id = fields.Int(dump_only=True)
     name = fields.String(required=True)
     postcode = fields.String(required=True)
     #trip = fields.Nested('TripSchema')
