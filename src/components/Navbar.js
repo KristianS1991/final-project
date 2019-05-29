@@ -34,7 +34,7 @@ class Navbar extends React.Component {
         <div className="container">
           <div className="navbar-brand">
 
-            <Link to="/" className="navbar-item navbar-home">CRUSH</Link>
+            <Link to="/" className="navbar-item navbar-home">CheckPoint</Link>
 
             <a role="button" className={`navbar-burger ${this.state.active ? 'is-active' : ''}`}
               onClick={this.toggleActive}>
@@ -54,7 +54,6 @@ class Navbar extends React.Component {
 
               {/* Right-hand links*/}
               {/* Method for Navbar components */}
-              {Auth.isAuthenticated() && <Link to={`/users/${Auth.getPayload().sub}/matches`} className="navbar-item">Matches</Link>}
               {Auth.isAuthenticated() && <Link to={`/users/${Auth.getPayload().sub}`} className="navbar-item">Profile</Link>}
 
               {!Auth.isAuthenticated() && <Link to="/login" className="navbar-item">Login</Link>}

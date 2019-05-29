@@ -1,4 +1,4 @@
-from pony.orm import Required, Optional, Set
+from pony.orm import Required, Set
 from marshmallow import Schema, fields
 from app import db
 

@@ -1,8 +1,9 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, abort
 from models.User import User, UserSchema
 from app import db
 from pony.orm import db_session
 from marshmallow import ValidationError
+# from lib import secure_route
 
 router = Blueprint('auth', __name__)
 
@@ -38,5 +39,26 @@ def login():
 
     return jsonify({
         'message': f'Welcome back {user.username}',
+        'id': f'{user.id}',
         'token': user.generate_token()
     })
+
+#show route for particular order based on id
+@router.route('/users/<int:user_id>', methods=['GET'])
+@db_session
+
+def show(user_id):
+    schema = UserSchema()
+    user = User.get(id=user_id)
+
+    if not user:
+        abort(404)
+
+    return schema.dumps(user)
+
+# @router.route('/profile', methods=['GET'])
+# @db_session
+# @secure_route
+# def profile():
+#     schema = UserSchema()
+#     return schema.dumps(g.current_user)

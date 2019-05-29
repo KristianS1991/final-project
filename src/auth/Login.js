@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios'
 import Auth from '../lib/Auth'
 
-import Footer from '../components/Footer'
+// import Footer from '../components/Footer'
 
 class Login extends React.Component {
   constructor() {
@@ -30,9 +30,10 @@ class Login extends React.Component {
       .then(res => {
       // set the token in localStorage
         Auth.setToken(res.data.token)
-        // redirect to `/cheeses`
+
+        console.log(res.data)
         //this.props.history.push('/users')
-        this.props.history.push(`/users/${res.data._id}`)
+        this.props.history.push(`/users/${res.data.id}`)
       })
       .catch(() => this.setState({ error: 'Invalid credentials' }))
   }
@@ -70,7 +71,6 @@ class Login extends React.Component {
             </div>
           </div>
         </section>
-        <Footer />
       </section>
     )
   }

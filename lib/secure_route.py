@@ -17,11 +17,6 @@ def secure_route(func):
             # token has expired
             return jsonify({'message': 'Token expired'}), 401
 
-        except Exception as err:
-            # any other error has occurred
-            print(err)
-            return jsonify({'message': 'Unauthorized'}), 401
-
         return func(*args, **kwargs)
 
     return wrapper

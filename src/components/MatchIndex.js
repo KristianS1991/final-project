@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import Auth from '../lib/Auth'
 import NoMatch from './NoMatch'
 import UserCard from './UserCard'
-import Footer from './Footer'
+
 
 class MatchIndex extends React.Component {
   constructor(props) {
@@ -38,7 +38,6 @@ class MatchIndex extends React.Component {
             </div>
           </div>
         </section>
-        <Footer />
       </section>
     )
   }
