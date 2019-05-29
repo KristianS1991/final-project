@@ -63,7 +63,7 @@ class UserDisplay extends React.Component {
                 <p className="subtitle">Current Location: {this.state.user.location}</p>
                 <div className="container is-flex">
                   <Link to ={{
-                    pathname: `/users/${this.props.match.params.id}/trips`,
+                    pathname: '/addtrip',
                     state: {id: this.props.match.params.id}
                   }}>
                     <button className="button is-danger">Add a Trip</button>

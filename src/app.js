@@ -10,7 +10,7 @@ import AboutUs from './components/AboutUs'
 import Footer from './components/Footer'
 
 import UserDisplay from './components/UserDisplay'
-// import MatchIndex from './components/MatchIndex'
+import AddTrip from './components/AddTrip'
 // import UserEdit from './components/UserEdit'
 
 import 'bulma'
@@ -25,6 +25,7 @@ class App extends React.Component {
           <Switch>
             {/*<Route path="/users/:id/matches" component={MatchIndex}/>
             <Route path="/users/:id/edit" component={UserEdit}/>*/}
+            <Route path="/addtrip" component={AddTrip}/>
             <Route path="/users/:id" component={UserDisplay}/>
             <Route path="/aboutus" component={AboutUs}/>
             <Route path="/register" component={Register}/>
