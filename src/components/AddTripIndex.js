@@ -3,47 +3,42 @@ import React from 'react'
 //import {Link} from 'react-router-dom'
 //import Auth from '../lib/Auth'
 import ShowMap from './ShowMap'
+import LocationForm from './LocationForm'
 import mapboxgl from 'mapbox-gl'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
 
 class AddTripIndex extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = {
       center: [-0.07, 51.515],
-      zoom: 10
+      zoom: 10,
+      data: {}
     }
+
+    this.handleChange = this.handleChange.bind(this)
+
+  }
+
+  handleChange(e) {
+    const data =  {...this.state.data, [e.target.name]: e.target.value }
+    this.setState({ data: data })
   }
 
   componentDidMount() {
-    // this.map = new mapboxgl.Map({
-    //   container: this.mapCanvas,
-    //   style: 'mapbox://styles/mapbox/streets-v9',
-    //   zoom: this.state.zoom,
-    //   center: this.state.center
-    // })
 
-    // navigator.geolocation.getCurrentPosition(pos => {
-    //   this.setState({ zoom: 14, center: [pos.coords.longitude,pos.coords.latitude] })
-    // })
   }
 
   componentDidUpdate() {
-    // this.map.flyTo({
-    //   center: this.state.center,
-    //   zoom: this.state.zoom
-    // })
-    //
-    // this.currentLocation = new mapboxgl.Marker()
-    //   .setLngLat(this.state.center)
-    //   .addTo(this.map)
+
   }
+
 
   render() {
 
     // const { lng, lat, zoom } = this.state
+    const handleChange = this.handleChange
 
     return (
       <div>
@@ -55,7 +50,9 @@ class AddTripIndex extends React.Component {
         <ShowMap
           {...this.state}
         />
-
+        <LocationForm
+          onChange={handleChange}
+        />
 
       </div>
 

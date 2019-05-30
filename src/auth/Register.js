@@ -25,7 +25,10 @@ class Register extends React.Component {
 
     axios.post('/api/register', this.state.data)
       .then(() => this.props.history.push('/login'))
-      .catch(err => this.setState({errors: err.response.data.errors}))
+      .catch((err) => {
+        console.log(err.response.data)
+        this.setState({errors: err.response.data.error})
+      })
   }
 
   render() {
@@ -59,30 +62,6 @@ class Register extends React.Component {
                   </div>
 
                   <div className="field">
-                    <label className="label">Location</label>
-                    <div className="select">
-                      <select name="location" onChange={this.handleChange}>
-                        <option value="">Select</option>
-                        <option value="Edinburgh">Edinburgh</option>
-                        <option value="London">London</option>
-                        <option value="Manchester">Manchester</option>
-                        <option value="Birmingham">Birmingham</option>
-                        <option value="Bristol">Bristol</option>
-                        <option value="Glasgow">Glasgow</option>
-                        <option value="Newcastle">Newcastle</option>
-                        <option value="York">York</option>
-                        <option value="Brighton">Brighton</option>
-                        <option value="Belfast">Belfast</option>
-                        <option value="Cardiff">Cardiff</option>
-                        <option value="Leeds">Leeds</option>
-                        <option value="Bath">Bath</option>
-                        <option value="Sheffield">Sheffield</option>
-                        <option value="Norwich">Norwich</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="field">
                     <label className="label">Password</label>
                     <div className="control">
                       <input className="input"
@@ -98,12 +77,12 @@ class Register extends React.Component {
                     <label className="label">Password Confirmation</label>
                     <div className="control">
                       <input className="input"
-                        name="passwordConfirmation"
+                        name="password_confirmation"
                         type="password"
                         placeholder="eg: ••••••••"
                         onChange={this.handleChange} />
                     </div>
-                    {this.state.errors.passwordConfirmation && <div className="help is-danger">{this.state.errors.passwordConfirmation}</div>}
+                    {this.state.errors.password_confirmation && <div className="help is-danger">{this.state.errors.password_confirmation}</div>}
                   </div>
                   <button className="button is-info submit-edit-button">Submit</button>
                 </form>
