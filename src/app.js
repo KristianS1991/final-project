@@ -10,12 +10,13 @@ import AboutUs from './components/AboutUs'
 import Footer from './components/Footer'
 
 import UserDisplay from './components/UserDisplay'
-// import AddTrip from './components/AddTrip'
-import AddTripTest from './components/AddTripTest'
+import AddTripIndex from './components/AddTripIndex'
+// import TripMap from './components/TripMap'
 // import UserEdit from './components/UserEdit'
 
+import 'mapbox-gl/dist/mapbox-gl.css'
 import 'bulma'
-// import './style.scss'
+import './style.scss'
 
 class App extends React.Component {
   render() {
@@ -27,7 +28,7 @@ class App extends React.Component {
             {/*<Route path="/users/:id/matches" component={MatchIndex}/>
             <Route path="/users/:id/edit" component={UserEdit}/>
             <Route path="/addtrip" component={AddTrip}/>*/}
-            <Route path="/addtrip" component={AddTripTest}/>
+            <Route path="/addtrip" component={AddTripIndex}/>
             <Route path="/users/:id" component={UserDisplay}/>
             <Route path="/aboutus" component={AboutUs}/>
             <Route path="/register" component={Register}/>
