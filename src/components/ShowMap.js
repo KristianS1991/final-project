@@ -12,8 +12,7 @@ class ShowMap extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      center: [-0.07, 51.515],
-      zoom: 10
+    
     }
   }
 
@@ -21,8 +20,8 @@ class ShowMap extends React.Component {
     this.map = new mapboxgl.Map({
       container: this.mapCanvas,
       style: 'mapbox://styles/mapbox/streets-v9',
-      zoom: this.state.zoom,
-      center: this.state.center
+      zoom: this.props.zoom,
+      center: this.props.center
     })
 
     navigator.geolocation.getCurrentPosition(pos => {
