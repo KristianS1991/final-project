@@ -5,6 +5,13 @@
   margin: 10px auto;
 }
 
-// .form-input {
-//   position: absolute;
-// }
+.map-form {
+  position: absolute;
+  z-index: 1;
+  top: 12vh;
+  left: 8vw;
+  background: gray;
+  padding: 10px;
+  border: solid 5px black;
+  border-radius: 10px;
+}

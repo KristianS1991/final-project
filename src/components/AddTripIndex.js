@@ -1,5 +1,5 @@
 import React from 'react'
-//import axios from 'axios'
+// import axios from 'axios'
 //import {Link} from 'react-router-dom'
 //import Auth from '../lib/Auth'
 import ShowMap from './ShowMap'
@@ -14,16 +14,31 @@ class AddTripIndex extends React.Component {
     this.state = {
       center: [-0.07, 51.515],
       zoom: 10,
-      data: {}
+      data: {},
+      errors: {}
     }
 
     this.handleChange = this.handleChange.bind(this)
-
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(e) {
+    console.log('handleChange firing')
     const data =  {...this.state.data, [e.target.name]: e.target.value }
     this.setState({ data: data })
+  }
+
+  handleSubmit(e) {
+    e.preventDefault()
+    console.log('submit firing')
+    // console.log(this.state)
+
+    // axios.post('/api/locations', this.state.data)
+    //   // .then(() => this.props.history.push('/login'))
+    //   .catch((err) => {
+    //     console.log(err.response.data)
+    //     this.setState({errors: err.response.data.error})
+    //   })
   }
 
   componentDidMount() {
@@ -39,6 +54,7 @@ class AddTripIndex extends React.Component {
 
     // const { lng, lat, zoom } = this.state
     const handleChange = this.handleChange
+    const handleSubmit = this.handleSubmit
 
     return (
       <div>
@@ -51,7 +67,8 @@ class AddTripIndex extends React.Component {
           {...this.state}
         />
         <LocationForm
-          onChange={handleChange}
+          passedChange={handleChange}
+          passedSubmit={handleSubmit}
         />
 
       </div>
