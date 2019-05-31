@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const TripCard = ({ id, name, locations }) => {
-  
+
   //Change the link below to reroute to the specific trip, maybe put in loop
   return (
     <Link to ={`/users/${id}`}>
@@ -10,9 +10,9 @@ const TripCard = ({ id, name, locations }) => {
         <div className="media-content">
           <div className="content">
             <p>
-              <strong>{name}</strong>
+              <strong>{`${name} : `}</strong>
               {locations.map(location =>
-                <small key={location.id}>{location.name}</small>
+                <small key={location.id}>{` ${location.name} `}</small>
               )}
             </p>
           </div>

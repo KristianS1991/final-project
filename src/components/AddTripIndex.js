@@ -1,7 +1,7 @@
 import React from 'react'
-// import axios from 'axios'
+import axios from 'axios'
 //import {Link} from 'react-router-dom'
-//import Auth from '../lib/Auth'
+import Auth from '../lib/Auth'
 import ShowMap from './ShowMap'
 import LocationForm from './LocationForm'
 import mapboxgl from 'mapbox-gl'
@@ -14,7 +14,9 @@ class AddTripIndex extends React.Component {
     this.state = {
       center: [-0.07, 51.515],
       zoom: 10,
-      data: {},
+      data: {
+        // trip: this.props.match.params.id
+      },
       errors: {}
     }
 
@@ -23,22 +25,20 @@ class AddTripIndex extends React.Component {
   }
 
   handleChange(e) {
-    console.log('handleChange firing')
     const data =  {...this.state.data, [e.target.name]: e.target.value }
     this.setState({ data: data })
+    console.log(this.state.data)
   }
 
   handleSubmit(e) {
     e.preventDefault()
-    console.log('submit firing')
-    // console.log(this.state)
 
-    // axios.post('/api/locations', this.state.data)
-    //   // .then(() => this.props.history.push('/login'))
-    //   .catch((err) => {
-    //     console.log(err.response.data)
-    //     this.setState({errors: err.response.data.error})
-    //   })
+    axios.post(`/api/locations/${this.props.match.params.id}`, this.state.data, {
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .catch((err) => {
+        this.setState({errors: err.response.data.error})
+      })
   }
 
   componentDidMount() {

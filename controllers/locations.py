@@ -1,7 +1,8 @@
-from flask import Blueprint, jsonify, request, abort, g
+from flask import Blueprint, jsonify, request, abort
 from marshmallow import ValidationError
 from pony.orm import db_session
 from models.Location import Location, LocationSchema
+from models.Trip import Trip
 from app import db
 from lib.secure_route import secure_route
 
@@ -28,16 +29,18 @@ def show(location_id):
 
     return schema.dumps(location)
 
-# create route for creating an order
-@router.route('/locations', methods=['POST'])
+# create route for creating a location
+@router.route('/locations/<string:trip_name>', methods=['POST'])
 @db_session
 @secure_route
-def create():
+def create(trip_name):
     schema = LocationSchema()
 
     try:
         data = schema.load(request.get_json())
-        data['user'] = g.current_user
+        trip = Trip.get(name=trip_name)
+        data['trip'] = trip
+
         location = Location(**data)
         db.commit()
     except ValidationError as err:

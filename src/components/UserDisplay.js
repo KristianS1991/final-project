@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Auth from '../lib/Auth'
 import Loading from './Loading'
@@ -17,12 +17,14 @@ class UserDisplay extends React.Component {
     }
 
     this.handleChange = this.handleChange.bind(this)
+    this.addTrip = this.addTrip.bind(this)
     //this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(e) {
     const data = { ...this.state.data, [e.target.name]: e.target.value }
     this.setState({ data: data })
+    console.log(this.state.data)
   }
 
   getUser() {
@@ -30,6 +32,16 @@ class UserDisplay extends React.Component {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(res => this.setState({ user: res.data }))
+  }
+
+  addTrip() {
+    axios.post('/api/trips', this.state.data, {
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .then(() => this.props.history.push(`/addTrip/${this.state.data.name}`))
+      .catch((err) => {
+        this.setState({errors: err.response.data.error})
+      })
   }
 
   componentDidMount() {
@@ -62,12 +74,22 @@ class UserDisplay extends React.Component {
                 <p className="subtitle is-4">Name: {this.state.user.username}</p>
                 <p className="subtitle">Current Location: {this.state.user.location}</p>
                 <div className="container is-flex">
-                  <Link to ={{
+                  <div className="field">
+                    <label className="label is-small">New Trip</label>
+                    <div className="control">
+                      <input name="name"
+                        placeholder="Enter Trip Name Here"
+                        onChange={this.handleChange} />
+                    </div>
+                    {/*{this.state.errors.email && <div className="help is-danger">{this.state.errors.email}</div>}*/}
+                  </div>
+                  {/*<Link to ={{
                     pathname: '/addtrip',
                     state: {id: this.props.match.params.id}
-                  }}>
-                    <button className="button is-danger">Add a Trip</button>
-                  </Link>
+                  }}>*/}
+                  <button className="button is-danger" onClick={this.addTrip}>Add Trip</button>
+                  {/*</Link>*/}
+
                 </div>
               </div>
             </div>

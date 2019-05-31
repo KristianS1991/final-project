@@ -28,7 +28,7 @@ class App extends React.Component {
             {/*<Route path="/users/:id/matches" component={MatchIndex}/>
             <Route path="/users/:id/edit" component={UserEdit}/>
             <Route path="/addtrip" component={AddTrip}/>*/}
-            <Route path="/addtrip" component={AddTripIndex}/>
+            <Route path="/addTrip/:id" component={AddTripIndex}/>
             <Route path="/users/:id" component={UserDisplay}/>
             <Route path="/aboutus" component={AboutUs}/>
             <Route path="/register" component={Register}/>

@@ -10,5 +10,5 @@ class Trip(db.Entity):
 class TripSchema(Schema):
     id = fields.Int(dump_only=True)
     name = fields.String(required=True)
-    user = fields.Nested('UserSchema')
+    user = fields.Nested('UserSchema', exclude=('trips',)) #exclude trips here?
     locations = fields.Nested('LocationSchema', many=True)

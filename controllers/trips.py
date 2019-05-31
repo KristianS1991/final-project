@@ -37,8 +37,9 @@ def create():
 
     try:
         data = schema.load(request.get_json())
-        data['user'] = g.current_user
-        trip = Trip(**data)
+        print(data)
+        # data['user'] = g.current_user
+        trip = Trip(**data, user=g.current_user)
         db.commit()
     except ValidationError as err:
         return jsonify({'message': 'Validation failed', 'errors': err.messages}), 422
