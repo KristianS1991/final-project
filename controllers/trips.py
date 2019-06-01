@@ -104,17 +104,20 @@ def create_location(trip_id):
     return trip_schema.dumps(trip), 200
 
 #
-# #delete route - delete an order
-# @router.route('/trips/<int:trip_id>/locations/<int:location_id>', methods=['DELETE'])
-# @db_session
-# @secure_route
-# def delete(location_id):
-#     location = Location.get(id=location_id)
-#
-#     if not location:
-#         abort(404)
-#
-#     location.delete()
-#     db.commit()
-#
-#     return '', 204
+#delete route - delete an order
+@router.route('/trips/<int:trip_id>/locations/<int:location_id>', methods=['DELETE'])
+@db_session
+@secure_route
+def delete_location(location_id, trip_id):
+    location = Location.get(id=location_id)
+
+    trip_schema = TripSchema()
+    trip = Trip.get(id=trip_id)
+
+    if not location:
+        abort(404)
+
+    location.delete()
+    db.commit()
+
+    return trip_schema.dumps(trip), 200

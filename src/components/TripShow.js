@@ -26,6 +26,19 @@ class TripShow extends React.Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.removeLocation = this.removeLocation.bind(this)
+  }
+
+  removeLocation(location) {
+    console.log(location)
+    console.log('TODO: actually remove the location...')
+
+    axios.delete(`/api/trips/${this.props.match.params.id}/locations/${this.props.match.params.id}`, this.state.data, {
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+      .then(res => this.setState({ trip: res.data }))
+      .catch((err) => this.setState({errors: err.response.data.error}))
+
   }
 
   handleChange(e) {
@@ -70,6 +83,7 @@ class TripShow extends React.Component {
           locations={this.state.trip.locations}
           center={this.state.center}
           zoom={this.state.zoom}
+          removeLocation={this.removeLocation}
         />
         <LocationForm
           passedChange={this.handleChange}

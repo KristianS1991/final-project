@@ -36,9 +36,26 @@ class ShowMap extends React.Component {
   }
 
   generateMarker(location) {
-    return new mapboxgl.Marker()
-      .setLngLat([location.longitude, location.latitude])
+    //generate the popup in CDM, dont add to map, then set the lat and long and add to map when you click on it
+    //first create an event listener on the marker, click and console log
+    const popupEl = document.createElement('DIV')
+    const button = document.createElement('BUTTON')
+    button.innerText = 'Click me yo!'
+    button.onclick = () => this.props.removeLocation(location)
+
+    popupEl.appendChild(button)
+
+    const popup = new mapboxgl.Popup({offset: 25})
+      // .setText('Hey')
+      .setDOMContent(popupEl)
       .addTo(this.map)
+
+    const marker = new mapboxgl.Marker()
+      .setLngLat([location.longitude, location.latitude])
+      .setPopup(popup)
+      .addTo(this.map)
+
+    return marker
   }
 
   updateMapPosition() {
@@ -53,7 +70,7 @@ class ShowMap extends React.Component {
       this.markers.forEach(marker => marker.remove())
       this.markers = this.props.locations.map(location => this.generateMarker(location))
 
-      
+
     }
   }
 
