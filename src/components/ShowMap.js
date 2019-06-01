@@ -13,6 +13,8 @@ class ShowMap extends React.Component {
     super(props)
 
     this.markers = []
+
+    this.bounds = new mapboxgl.LngLatBounds()
   }
 
   componentDidMount() {
@@ -32,6 +34,17 @@ class ShowMap extends React.Component {
       this.currentLocation = new mapboxgl.Marker()
         .setLngLat([pos.coords.longitude,pos.coords.latitude])
         .addTo(this.map)
+    })
+
+
+  }
+
+  updateMapView(location) {
+    this.bounds.extend([location.longitude, location.latitude])
+
+    this.map.flyTo({
+      center: this.bounds.getCenter(),
+      zoom: 13
     })
   }
 
@@ -58,6 +71,8 @@ class ShowMap extends React.Component {
       .setLngLat([location.longitude, location.latitude])
       .setPopup(popup)
       .addTo(this.map)
+
+    this.updateMapView(location)
 
     return marker
   }
