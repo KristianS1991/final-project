@@ -30,10 +30,10 @@ class TripShow extends React.Component {
   }
 
   removeLocation(location) {
-    console.log(location)
+    console.log(location.id)
     console.log('TODO: actually remove the location...')
 
-    axios.delete(`/api/trips/${this.props.match.params.id}/locations/${this.props.match.params.id}`, this.state.data, {
+    axios.delete(`/api/trips/${this.props.match.params.id}/locations/${location.id}`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(res => this.setState({ trip: res.data }))
