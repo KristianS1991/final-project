@@ -39,10 +39,14 @@ class ShowMap extends React.Component {
     //generate the popup in CDM, dont add to map, then set the lat and long and add to map when you click on it
     //first create an event listener on the marker, click and console log
     const popupEl = document.createElement('DIV')
+    const locationName = document.createElement('DIV')
     const button = document.createElement('BUTTON')
-    button.innerText = 'Click me yo!'
+
+    locationName.innerText = location.name
+    button.innerText = 'Remove Location'
     button.onclick = () => this.props.removeLocation(location)
 
+    popupEl.appendChild(locationName)
     popupEl.appendChild(button)
 
     const popup = new mapboxgl.Popup({offset: 25})
