@@ -5,7 +5,7 @@ const TripCard = ({ id, name, locations }) => {
 
   //Change the link below to reroute to the specific trip, maybe put in loop
   return (
-    <Link to ={`/users/${id}`}>
+    <Link to ={`/trips/${id}`}>
       <article className="media">
         <div className="media-content">
           <div className="content">

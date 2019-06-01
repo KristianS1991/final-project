@@ -39,7 +39,7 @@ class UserDisplay extends React.Component {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
     // change the below
-      .then(() => this.props.history.push(`/addTrip/${this.state.data.name}`))
+      .then((res) => this.props.history.push(`/trips/${res.data.id}`))
       .catch((err) => {
         this.setState({errors: err.response.data.error})
       })
