@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request, abort, g
 from marshmallow import ValidationError
 from pony.orm import db_session
 from models.Trip import Trip, TripSchema
+from models.Location import Location, LocationSchema
 from app import db
 from lib.secure_route import secure_route
 
@@ -80,3 +81,40 @@ def delete(trip_id):
     db.commit()
 
     return '', 204
+
+
+# create route for creating a location
+@router.route('/trips/<int:trip_id>/locations', methods=['POST'])
+@db_session
+@secure_route
+def create_location(trip_id):
+    location_schema = LocationSchema()
+    trip_schema = TripSchema()
+
+    trip = Trip.get(id=trip_id)
+
+    try:
+        data = location_schema.load(request.get_json())
+        print(data)
+        Location(**data, trip=trip)
+        db.commit()
+    except ValidationError as err:
+        return jsonify({'message': 'Validation failed', 'errors': err.messages}), 422
+
+    return trip_schema.dumps(trip), 200
+
+#
+# #delete route - delete an order
+# @router.route('/trips/<int:trip_id>/locations/<int:location_id>', methods=['DELETE'])
+# @db_session
+# @secure_route
+# def delete(location_id):
+#     location = Location.get(id=location_id)
+#
+#     if not location:
+#         abort(404)
+#
+#     location.delete()
+#     db.commit()
+#
+#     return '', 204

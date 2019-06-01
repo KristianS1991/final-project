@@ -8,7 +8,7 @@ import mapboxgl from 'mapbox-gl'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
 
-class AddTripIndex extends React.Component {
+class TripShow extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -16,6 +16,10 @@ class AddTripIndex extends React.Component {
       zoom: 10,
       data: {
         // trip: this.props.match.params.id
+      },
+      // coordinates: [],
+      trip: {
+        locations: []
       },
       errors: {}
     }
@@ -26,23 +30,26 @@ class AddTripIndex extends React.Component {
 
   handleChange(e) {
     const data =  {...this.state.data, [e.target.name]: e.target.value }
-    this.setState({ data: data })
-    console.log(this.state.data)
+    this.setState({ data })
   }
 
   handleSubmit(e) {
     e.preventDefault()
+    e.target.reset()
 
-    axios.post(`/api/locations/${this.props.match.params.id}`, this.state.data, {
+    axios.post(`/api/trips/${this.props.match.params.id}/locations`, this.state.data, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .catch((err) => {
-        this.setState({errors: err.response.data.error})
-      })
+      .then(res => this.setState({ trip: res.data }))
+      .catch((err) => this.setState({errors: err.response.data.error}))
+
+
+
   }
 
   componentDidMount() {
-
+    axios.get(`/api/trips/${this.props.match.params.id}`)
+      .then(res => this.setState({ trip: res.data }))
   }
 
   componentDidUpdate() {
@@ -52,10 +59,6 @@ class AddTripIndex extends React.Component {
 
   render() {
 
-    // const { lng, lat, zoom } = this.state
-    const handleChange = this.handleChange
-    const handleSubmit = this.handleSubmit
-
     return (
       <div>
         {/*<div className="inline-block absolute top left mt12 ml12 bg-darken75 color-white z1 py6 px12 round-full txt-s txt-bold">
@@ -64,11 +67,13 @@ class AddTripIndex extends React.Component {
         {/*<div ref={el => this.mapCanvas = el} className="map" />*/}
 
         <ShowMap
-          {...this.state}
+          locations={this.state.trip.locations}
+          center={this.state.center}
+          zoom={this.state.zoom}
         />
         <LocationForm
-          passedChange={handleChange}
-          passedSubmit={handleSubmit}
+          passedChange={this.handleChange}
+          passedSubmit={this.handleSubmit}
         />
 
       </div>
@@ -77,4 +82,4 @@ class AddTripIndex extends React.Component {
   }
 }
 
-export default AddTripIndex
+export default TripShow

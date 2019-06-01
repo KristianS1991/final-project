@@ -10,7 +10,7 @@ import AboutUs from './components/AboutUs'
 import Footer from './components/Footer'
 
 import UserDisplay from './components/UserDisplay'
-import AddTripIndex from './components/AddTripIndex'
+import TripShow from './components/TripShow'
 // import TripMap from './components/TripMap'
 // import UserEdit from './components/UserEdit'
 
@@ -28,7 +28,7 @@ class App extends React.Component {
             {/*<Route path="/users/:id/matches" component={MatchIndex}/>
             <Route path="/users/:id/edit" component={UserEdit}/>
             <Route path="/addtrip" component={AddTrip}/>*/}
-            <Route path="/addTrip/:id" component={AddTripIndex}/>
+            <Route path="/trips/:id" component={TripShow}/>
             <Route path="/users/:id" component={UserDisplay}/>
             <Route path="/aboutus" component={AboutUs}/>
             <Route path="/register" component={Register}/>

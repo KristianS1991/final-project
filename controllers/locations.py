@@ -30,17 +30,14 @@ def show(location_id):
     return schema.dumps(location)
 
 # create route for creating a location
-@router.route('/locations/<string:trip_name>', methods=['POST'])
+@router.route('/locations', methods=['POST'])
 @db_session
 @secure_route
-def create(trip_name):
+def create():
     schema = LocationSchema()
 
     try:
         data = schema.load(request.get_json())
-        trip = Trip.get(name=trip_name)
-        data['trip'] = trip
-
         location = Location(**data)
         db.commit()
     except ValidationError as err:

@@ -11,9 +11,8 @@ class ShowMap extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {
 
-    }
+    this.markers = []
   }
 
   componentDidMount() {
@@ -25,19 +24,37 @@ class ShowMap extends React.Component {
     })
 
     navigator.geolocation.getCurrentPosition(pos => {
-      this.setState({ zoom: 14, center: [pos.coords.longitude,pos.coords.latitude] })
+      this.map.flyTo({
+        center: [pos.coords.longitude,pos.coords.latitude],
+        zoom: 14
+      })
+
+      this.currentLocation = new mapboxgl.Marker()
+        .setLngLat([pos.coords.longitude,pos.coords.latitude])
+        .addTo(this.map)
     })
   }
 
-  componentDidUpdate() {
-    this.map.flyTo({
-      center: this.state.center,
-      zoom: this.state.zoom
-    })
-
-    this.currentLocation = new mapboxgl.Marker()
-      .setLngLat(this.state.center)
+  generateMarker(location) {
+    return new mapboxgl.Marker()
+      .setLngLat([location.longitude, location.latitude])
       .addTo(this.map)
+  }
+
+  updateMapPosition() {
+
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log('updating...', prevProps, this.props)
+    if(prevProps.locations.length !== this.props.locations.length) {
+      console.log('Locations have changed, re-draw the markers')
+      console.log('markers', this.markers)
+      this.markers.forEach(marker => marker.remove())
+      this.markers = this.props.locations.map(location => this.generateMarker(location))
+
+      
+    }
   }
 
   render() {
