@@ -21,12 +21,15 @@ class TripShow extends React.Component {
       trip: {
         locations: []
       },
+      // polylineCoords: [],
       errors: {}
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.removeLocation = this.removeLocation.bind(this)
+
+    this.polylineCoords = []
   }
 
   removeLocation(location) {
@@ -37,6 +40,21 @@ class TripShow extends React.Component {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
       .then(res => this.setState({ trip: res.data }))
+      // .then(res => this.setState({ polylineCoords: res.data }))
+      .catch((err) => this.setState({errors: err.response.data.error}))
+
+  }
+
+  getDirections(coordinates) {
+    // console.log(coordinates, typeof coordinates, 'coords from gD')
+
+    axios.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}.json?access_token=pk.eyJ1Ijoia3JlZWRhIiwiYSI6ImNqdzd5cDcybDBwaDk0Ym80MWtyZWExdW4ifQ.7DAQG_E6Yzql2DamyP-_qg&geometries=geojson`)
+      // .then(res => this.setState({ polylineCoords: res.data.routes[0].geometry.coordinates }))
+      .then(res => console.log(res.data.routes[0].geometry.coordinates))
+      // .then((res) => {
+    // this.polylineCoords = res.data.routes[0].geometry.coordinates
+      // })
+      // .then(() => console.log(this.state.polylineCoords))
       .catch((err) => this.setState({errors: err.response.data.error}))
 
   }
@@ -74,16 +92,13 @@ class TripShow extends React.Component {
 
     return (
       <div>
-        {/*<div className="inline-block absolute top left mt12 ml12 bg-darken75 color-white z1 py6 px12 round-full txt-s txt-bold">
-          <div>{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
-        </div>*/}
-        {/*<div ref={el => this.mapCanvas = el} className="map" />*/}
-
         <ShowMap
           locations={this.state.trip.locations}
           center={this.state.center}
           zoom={this.state.zoom}
           removeLocation={this.removeLocation}
+          polylineCoords={this.polylineCoords}
+          getDirections={this.getDirections}
         />
         <LocationForm
           passedChange={this.handleChange}
