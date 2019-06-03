@@ -50,7 +50,12 @@ class TripShow extends React.Component {
 
   getDirections(coordinates) {
 
-    axios.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}.json?access_token=pk.eyJ1Ijoia3JlZWRhIiwiYSI6ImNqdzd5cDcybDBwaDk0Ym80MWtyZWExdW4ifQ.7DAQG_E6Yzql2DamyP-_qg&geometries=geojson`)
+    axios.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}.json`, {
+      params: {
+        access_token: 'pk.eyJ1Ijoia3JlZWRhIiwiYSI6ImNqdzd5cDcybDBwaDk0Ym80MWtyZWExdW4ifQ.7DAQG_E6Yzql2DamyP-_qg',
+        geometries: 'geojson'
+      }
+    })
       .then(res => {
         this.setState({
           polylineCoords: res.data.routes[0].geometry.coordinates,

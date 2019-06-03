@@ -80,12 +80,20 @@ class ShowMap extends React.Component {
   }
 
   removeRoute() {
-    const mapLayer = this.map.getLayer('route')
+    const mapRouteLayer = this.map.getLayer('route')
+    const mapPointLayer = this.map.getLayer('point')
 
-    if(mapLayer) {
+    if(mapRouteLayer) {
       // Remove map layer & source.
       this.map.removeLayer('route').removeSource('route')
     }
+
+    if(mapPointLayer) {
+      // Remove map layer & source.
+      this.map.removeLayer('point').removeSource('point')
+    }
+
+
   }
 
   generatePolyline() {
@@ -191,19 +199,13 @@ class ShowMap extends React.Component {
   }
 
   createURLstr() {
-    const lngLatLocations = []
 
-    this.props.locations.forEach((location, i) => {
-      if(i === this.props.locations.length - 1) {
-        lngLatLocations.push(`${location.longitude},${location.latitude}`)
-      } else
-        lngLatLocations.push(`${location.longitude},${location.latitude};`)
-    })
+    const locations = this.props.locations
+      .sort((a, b) => a.id - b.id)
+      .map(location => `${location.longitude},${location.latitude}`)
+      .join(';')
 
-    this.urlString = lngLatLocations.join('')
-    console.log(this.urlString)
-
-    this.props.getDirections(this.urlString)
+    this.props.getDirections(locations)
 
   }
 
