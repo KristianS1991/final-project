@@ -41,18 +41,24 @@ class TripShow extends React.Component {
     axios.delete(`/api/trips/${this.props.match.params.id}/locations/${location.id}`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(res => this.setState({ trip: res.data }))
+      .then(res => this.setState({
+        trip: res.data,
+        newLocation: true
+      }))
+      // maybe call this.getDirections here? - need to update coordinates upon remove
       // .then(res => this.setState({ polylineCoords: res.data }))
       .catch((err) => this.setState({errors: err.response.data.error}))
 
+  }
+
+  generatePolyline() {
+    console.log('polyline generating')
   }
 
   getDirections(coordinates) {
     // console.log(coordinates, typeof coordinates, 'coords from gD')
 
     axios.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}.json?access_token=pk.eyJ1Ijoia3JlZWRhIiwiYSI6ImNqdzd5cDcybDBwaDk0Ym80MWtyZWExdW4ifQ.7DAQG_E6Yzql2DamyP-_qg&geometries=geojson`)
-      // .then(res => this.setState({ polylineCoords: res.data.routes[0].geometry.coordinates }))
-      // .then(res => console.log(res.data.routes[0].geometry.coordinates))
       .then(res => {
         this.setState({
           polylineCoords: res.data.routes[0].geometry.coordinates,
@@ -60,6 +66,9 @@ class TripShow extends React.Component {
         })
       })
       .then(() => console.log(this.state.polylineCoords))
+      .then(() => {
+        this.generatePolyline()
+      })
       .catch((err) => this.setState({errors: err}))
 
   }

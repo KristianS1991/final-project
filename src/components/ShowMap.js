@@ -128,6 +128,10 @@ class ShowMap extends React.Component {
       // this.generatePolyline() - CALL THIS after request promise to mapbox directions
     }
 
+    // if(this.props.polylineCoords.length && !this.props.newLocation) {
+    //   this.generatePolyline()
+    // }
+
 
 
   }
