@@ -1,14 +1,8 @@
 import React from 'react'
-// import axios from 'axios'
-//import {Link} from 'react-router-dom'
-//import Auth from '../lib/Auth'
-
 import mapboxgl from 'mapbox-gl'
-
 import * as turf from '@turf/turf'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
-
 
 class ShowMap extends React.Component {
 
@@ -17,7 +11,6 @@ class ShowMap extends React.Component {
 
     this.markers = []
     this.bounds = new mapboxgl.LngLatBounds()
-
     this.animate = this.animate.bind(this)
   }
 
@@ -84,15 +77,12 @@ class ShowMap extends React.Component {
     const mapPointLayer = this.map.getLayer('point')
 
     if(mapRouteLayer) {
-      // Remove map layer & source.
       this.map.removeLayer('route').removeSource('route')
     }
 
     if(mapPointLayer) {
-      // Remove map layer & source.
       this.map.removeLayer('point').removeSource('point')
     }
-
 
   }
 
@@ -154,7 +144,6 @@ class ShowMap extends React.Component {
 
     this.map.addLayer(this.point)
 
-
     this.animatePrep()
   }
 
@@ -165,7 +154,9 @@ class ShowMap extends React.Component {
     console.log(this.lineDistance)
 
     this.path = []
-    this.steps = 500
+    // this.steps = 500
+    //steps = [100 steps / km]
+    this.steps = Math.ceil(this.lineDistance * 100)
     this.counter = 0
 
     for (var i = 0; i < this.lineDistance; i += this.lineDistance/this.steps) {
@@ -210,7 +201,6 @@ class ShowMap extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    // console.log('updating...', prevProps, this.props)
 
     //reset the markers
     if(prevProps.locations.length !== this.props.locations.length) {
@@ -224,12 +214,11 @@ class ShowMap extends React.Component {
     }
 
     this.removeRoute()
+
     // generate the polyline if the array of lat,lng coordinates exists
     if(this.props.polylineCoords.length) {
       this.generatePolyline()
     }
-
-    // this.generatePolyline()
 
   }
 
