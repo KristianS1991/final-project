@@ -75,7 +75,7 @@ class ShowMap extends React.Component {
 
   removeRoute() {
     const mapLayer = this.map.getLayer('route')
-    // if(typeof mapLayer !== 'undefined') {
+
     if(mapLayer) {
       // Remove map layer & source.
       this.map.removeLayer('route').removeSource('route')
@@ -83,8 +83,7 @@ class ShowMap extends React.Component {
   }
 
   generatePolyline() {
-
-    this.map.addLayer({
+    const route = {
       'id': 'route',
       'type': 'line',
       'source': {
@@ -106,9 +105,44 @@ class ShowMap extends React.Component {
         'line-color': '#888',
         'line-width': 8
       }
-    })
+    }
+
+    this.map.addLayer(route)
+    this.generatePoint()
+  }
+
+  generatePoint() {
+
+    const point = {
+      'id': 'point',
+      'type': 'symbol',
+      'source': {
+        'type': 'geojson',
+        'data': {
+          'type': 'Feature',
+          'properties': {},
+          'geometry': {
+            'type': 'Point',
+            'coordinates': this.props.polylineCoords[0]
+          }
+        }
+      },
+      'layout': {
+        'icon-image': 'airport-15',
+        'icon-rotate': ['get', 'bearing'],
+        'icon-rotation-alignment': 'map',
+        'icon-allow-overlap': true,
+        'icon-ignore-placement': true
+      }
+    }
+
+    this.map.addLayer(point)
 
   }
+
+
+
+
 
   createURLstr() {
     const lngLatLocations = []
