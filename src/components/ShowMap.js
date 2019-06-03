@@ -5,6 +5,8 @@ import React from 'react'
 
 import mapboxgl from 'mapbox-gl'
 
+import * as turf from '@turf/turf'
+
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
 
 
@@ -83,7 +85,7 @@ class ShowMap extends React.Component {
   }
 
   generatePolyline() {
-    const route = {
+    this.route = {
       'id': 'route',
       'type': 'line',
       'source': {
@@ -107,13 +109,13 @@ class ShowMap extends React.Component {
       }
     }
 
-    this.map.addLayer(route)
+    this.map.addLayer(this.route)
     this.generatePoint()
   }
 
   generatePoint() {
 
-    const point = {
+    this.point = {
       'id': 'point',
       'type': 'symbol',
       'source': {
@@ -136,13 +138,17 @@ class ShowMap extends React.Component {
       }
     }
 
-    this.map.addLayer(point)
-
+    this.map.addLayer(this.point)
+    this.animatePrep()
   }
 
+  animatePrep() {
+    const lineString = turf.lineString(this.props.polylineCoords)
+    this.lineDistance = turf.length(lineString, {units: 'kilometers'})
 
+    console.log(this.lineDistance)
 
-
+  }
 
   createURLstr() {
     const lngLatLocations = []
