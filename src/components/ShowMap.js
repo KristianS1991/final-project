@@ -17,6 +17,8 @@ class ShowMap extends React.Component {
 
     this.markers = []
     this.bounds = new mapboxgl.LngLatBounds()
+
+    this.animate = this.animate.bind(this)
   }
 
   componentDidMount() {
@@ -116,21 +118,18 @@ class ShowMap extends React.Component {
   }
 
   generatePoint() {
+    this.pointData = {
+      'type': 'Feature',
+      'properties': {},
+      'geometry': {
+        'type': 'Point',
+        'coordinates': this.props.polylineCoords[0]
+      }}
 
     this.point = {
       'id': 'point',
       'type': 'symbol',
-      'source': {
-        'type': 'geojson',
-        'data': {
-          'type': 'Feature',
-          'properties': {},
-          'geometry': {
-            'type': 'Point',
-            'coordinates': this.props.polylineCoords[0]
-          }
-        }
-      },
+      'source': 'point',
       'layout': {
         'icon-image': 'airport-15',
         'icon-rotate': ['get', 'bearing'],
@@ -140,7 +139,14 @@ class ShowMap extends React.Component {
       }
     }
 
+    this.map.addSource('point', {
+      'type': 'geojson',
+      'data': this.pointData
+    })
+
     this.map.addLayer(this.point)
+
+
     this.animatePrep()
   }
 
@@ -150,6 +156,38 @@ class ShowMap extends React.Component {
 
     console.log(this.lineDistance)
 
+    this.path = []
+    this.steps = 500
+    this.counter = 0
+
+    for (var i = 0; i < this.lineDistance; i += this.lineDistance/this.steps) {
+      var segment = turf.along(lineString, i, {units: 'kilometers'})
+      this.path.push(segment.geometry.coordinates)
+    }
+
+    this.animate()
+
+  }
+
+  animate() {
+    this.pointData.geometry.coordinates = this.path[this.counter]
+
+    this.pointData.properties.bearing = turf.bearing(
+      turf.point(this.path[this.counter >= this.steps ? this.counter - 1 : this.counter]),
+      turf.point(this.path[this.counter >= this.steps ? this.counter : this.counter + 1])
+    )
+    //
+    this.map.getSource('point').setData(this.pointData)
+    //
+    if (this.counter < this.steps) {
+      requestAnimationFrame(this.animate)
+    }
+
+    this.counter = this.counter + 1
+
+    if(this.counter === this.steps - 1) {
+      this.counter = 0
+    }
   }
 
   createURLstr() {
