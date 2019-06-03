@@ -28,10 +28,12 @@ class ShowMap extends React.Component {
     })
 
     navigator.geolocation.getCurrentPosition(pos => {
-      this.map.flyTo({
-        center: [pos.coords.longitude,pos.coords.latitude],
-        zoom: 14
-      })
+      if(!this.props.polylineCoords.length) {
+        this.map.flyTo({
+          center: [pos.coords.longitude,pos.coords.latitude],
+          zoom: 14
+        })
+      }
 
       this.currentLocation = new mapboxgl.Marker()
         .setLngLat([pos.coords.longitude,pos.coords.latitude])
