@@ -4,8 +4,11 @@ import React from 'react'
 //import Auth from '../lib/Auth'
 
 import mapboxgl from 'mapbox-gl'
+// import L
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
+
+// const polyline = require('@mapbox/polyline')
 
 class ShowMap extends React.Component {
 
@@ -75,6 +78,39 @@ class ShowMap extends React.Component {
   generatePolyline() {
     console.log('polyline firing')
     console.log(this.props.polylineCoords)
+
+    // const polyline = L.polyline(this.props.polylineCoords, {color: 'red'}).addTo(this.map)
+    const mapLayer = this.map.getLayer('route')
+
+    if(typeof mapLayer !== 'undefined') {
+      // Remove map layer & source.
+      this.map.removeLayer('route').removeSource('route')
+    }
+
+    this.map.addLayer({
+      'id': 'route',
+      'type': 'line',
+      'source': {
+        'type': 'geojson',
+        'data': {
+          'type': 'Feature',
+          'properties': {},
+          'geometry': {
+            'type': 'LineString',
+            'coordinates': this.props.polylineCoords
+          }
+        }
+      },
+      'layout': {
+        'line-join': 'round',
+        'line-cap': 'round'
+      },
+      'paint': {
+        'line-color': '#888',
+        'line-width': 8
+      }
+    })
+
   }
 
   createURLstr() {
@@ -97,20 +133,18 @@ class ShowMap extends React.Component {
   componentDidUpdate(prevProps) {
     // console.log('updating...', prevProps, this.props)
 
+    //reset the markers
     if(prevProps.locations.length !== this.props.locations.length) {
       this.markers.forEach(marker => marker.remove())
       this.markers = this.props.locations.map(location => this.generateMarker(location))
     }
 
+    //trigger the sequence for getting the polyline data if there is > one location
     if(this.props.locations.length > 1 && this.props.newLocation) {
       this.createURLstr()
     }
 
-    // if you want to call it from ShowMap - work out the below?
-    // if(this.props.polylineCoords.length && !this.props.newLocation) {
-    //   this.generatePolyline()
-    // }
-
+    //generate the polyline if the array of lat,lng coordinates exists
     if(this.props.polylineCoords.length) {
       this.generatePolyline()
     }
