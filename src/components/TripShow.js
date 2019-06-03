@@ -22,14 +22,16 @@ class TripShow extends React.Component {
         locations: []
       },
       // polylineCoords: [],
-      errors: {}
+      errors: {},
+      polylineCoords: [],
+      newLocation: true
     }
 
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.removeLocation = this.removeLocation.bind(this)
+    this.getDirections = this.getDirections.bind(this)
 
-    this.polylineCoords = []
   }
 
   removeLocation(location) {
@@ -50,14 +52,19 @@ class TripShow extends React.Component {
 
     axios.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}.json?access_token=pk.eyJ1Ijoia3JlZWRhIiwiYSI6ImNqdzd5cDcybDBwaDk0Ym80MWtyZWExdW4ifQ.7DAQG_E6Yzql2DamyP-_qg&geometries=geojson`)
       // .then(res => this.setState({ polylineCoords: res.data.routes[0].geometry.coordinates }))
-      .then(res => console.log(res.data.routes[0].geometry.coordinates))
-      // .then((res) => {
-    // this.polylineCoords = res.data.routes[0].geometry.coordinates
-      // })
-      // .then(() => console.log(this.state.polylineCoords))
-      .catch((err) => this.setState({errors: err.response.data.error}))
+      // .then(res => console.log(res.data.routes[0].geometry.coordinates))
+      .then(res => {
+        this.setState({
+          polylineCoords: res.data.routes[0].geometry.coordinates,
+          newLocation: false
+        })
+      })
+      .then(() => console.log(this.state.polylineCoords))
+      .catch((err) => this.setState({errors: err}))
 
   }
+
+
 
   handleChange(e) {
     const data =  {...this.state.data, [e.target.name]: e.target.value }
@@ -71,7 +78,7 @@ class TripShow extends React.Component {
     axios.post(`/api/trips/${this.props.match.params.id}/locations`, this.state.data, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(res => this.setState({ trip: res.data }))
+      .then(res => this.setState({ trip: res.data, newLocation: true }))
       .catch((err) => this.setState({errors: err.response.data.error}))
 
 
@@ -99,6 +106,7 @@ class TripShow extends React.Component {
           removeLocation={this.removeLocation}
           polylineCoords={this.polylineCoords}
           getDirections={this.getDirections}
+          newLocation={this.state.newLocation}
         />
         <LocationForm
           passedChange={this.handleChange}

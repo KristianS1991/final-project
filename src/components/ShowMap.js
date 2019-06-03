@@ -121,11 +121,10 @@ class ShowMap extends React.Component {
     // this.urlString = this.lngLatLocations.join('')
 
 
-    if(this.props.locations.length > 1) {
+    if(this.props.locations.length > 1 && this.props.newLocation) {
 
       this.createURLstr()
       // this.props.getDirections()
-
       // this.generatePolyline() - CALL THIS after request promise to mapbox directions
     }
 
