@@ -13,7 +13,6 @@ class ShowMap extends React.Component {
     super(props)
 
     this.markers = []
-    // this.lngLatLocations = []
     this.bounds = new mapboxgl.LngLatBounds()
   }
 
@@ -35,8 +34,6 @@ class ShowMap extends React.Component {
         .setLngLat([pos.coords.longitude,pos.coords.latitude])
         .addTo(this.map)
     })
-
-
   }
 
   updateMapView(location) {
@@ -49,8 +46,7 @@ class ShowMap extends React.Component {
   }
 
   generateMarker(location) {
-    //generate the popup in CDM, dont add to map, then set the lat and long and add to map when you click on it
-    //first create an event listener on the marker, click and console log
+
     const popupEl = document.createElement('DIV')
     const locationName = document.createElement('DIV')
     const button = document.createElement('BUTTON')
@@ -63,7 +59,6 @@ class ShowMap extends React.Component {
     popupEl.appendChild(button)
 
     const popup = new mapboxgl.Popup({offset: 25})
-      // .setText('Hey')
       .setDOMContent(popupEl)
       .addTo(this.map)
 
@@ -79,6 +74,7 @@ class ShowMap extends React.Component {
 
   generatePolyline() {
     console.log('polyline firing')
+    console.log(this.props.polylineCoords)
   }
 
   createURLstr() {
@@ -99,40 +95,25 @@ class ShowMap extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log('updating...', prevProps, this.props)
+    // console.log('updating...', prevProps, this.props)
+
     if(prevProps.locations.length !== this.props.locations.length) {
-      console.log('Locations have changed, re-draw the markers')
-      console.log('markers', this.markers)
       this.markers.forEach(marker => marker.remove())
       this.markers = this.props.locations.map(location => this.generateMarker(location))
     }
 
-    // this.props.locations.forEach((location) => {
-    //   this.lngLatLocations.push([location.longitude, location.latitude])
-    // })
-
-    // this.props.locations.forEach((location, i) => {
-    //   if(i === this.props.locations.length - 1) {
-    //     this.lngLatLocations.push(`${location.longitude},${location.latitude}`)
-    //   } else
-    //     this.lngLatLocations.push(`${location.longitude},${location.latitude};`)
-    // })
-    //
-    // this.urlString = this.lngLatLocations.join('')
-
-
     if(this.props.locations.length > 1 && this.props.newLocation) {
-
       this.createURLstr()
-      // this.props.getDirections()
-      // this.generatePolyline() - CALL THIS after request promise to mapbox directions
     }
 
+    // if you want to call it from ShowMap - work out the below?
     // if(this.props.polylineCoords.length && !this.props.newLocation) {
     //   this.generatePolyline()
     // }
 
-
+    if(this.props.polylineCoords.length) {
+      this.generatePolyline()
+    }
 
   }
 
@@ -143,7 +124,6 @@ class ShowMap extends React.Component {
         <div ref={el => this.mapCanvas = el} className="map" />
       </div>
     )
-
 
   }
 }
