@@ -4,11 +4,9 @@ import React from 'react'
 //import Auth from '../lib/Auth'
 
 import mapboxgl from 'mapbox-gl'
-// import L
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
 
-// const polyline = require('@mapbox/polyline')
 
 class ShowMap extends React.Component {
 
@@ -75,17 +73,16 @@ class ShowMap extends React.Component {
     return marker
   }
 
-  generatePolyline() {
-    console.log('polyline firing')
-    console.log(this.props.polylineCoords)
-
-    // const polyline = L.polyline(this.props.polylineCoords, {color: 'red'}).addTo(this.map)
+  removeRoute() {
     const mapLayer = this.map.getLayer('route')
-
-    if(typeof mapLayer !== 'undefined') {
+    // if(typeof mapLayer !== 'undefined') {
+    if(mapLayer) {
       // Remove map layer & source.
       this.map.removeLayer('route').removeSource('route')
     }
+  }
+
+  generatePolyline() {
 
     this.map.addLayer({
       'id': 'route',
@@ -144,10 +141,13 @@ class ShowMap extends React.Component {
       this.createURLstr()
     }
 
-    //generate the polyline if the array of lat,lng coordinates exists
+    this.removeRoute()
+    // generate the polyline if the array of lat,lng coordinates exists
     if(this.props.polylineCoords.length) {
       this.generatePolyline()
     }
+
+    // this.generatePolyline()
 
   }
 
