@@ -6,7 +6,6 @@ class Navbar extends React.Component {
 
   constructor(props) {
     super(props)
-
     this.state = { active: false }
 
     this.logout = this.logout.bind(this)
@@ -33,9 +32,7 @@ class Navbar extends React.Component {
       <nav className="navbar">
         <div className="container">
           <div className="navbar-brand">
-
             <Link to="/" className="navbar-item navbar-home">CheckPoint</Link>
-
             <a role="button" className={`navbar-burger ${this.state.active ? 'is-active' : ''}`}
               onClick={this.toggleActive}>
               <span aria-hidden="true"></span>
@@ -43,11 +40,7 @@ class Navbar extends React.Component {
               <span aria-hidden="true"></span>
             </a>
           </div>
-
           <div className={`navbar-menu ${this.state.active ? 'is-active' : ''}`}>
-
-            {/* Everything else*/}
-
             <div className="navbar-end">
 
               <Link to="/aboutus" className="navbar-item">About Us</Link>
@@ -68,5 +61,5 @@ class Navbar extends React.Component {
     )
   }
 }
-// `withRouter` gives the Navbar `history` via props
+// give the Navbar `history` via props
 export default withRouter(Navbar)

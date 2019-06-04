@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 const TripCard = ({ id, name, locations, deleteTrip }) => {
 
-  //Change the link below to reroute to the specific trip, maybe put in loop
   return (
     <article className="media">
       <Link to ={`/trips/${id}`}>

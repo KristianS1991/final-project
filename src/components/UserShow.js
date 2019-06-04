@@ -55,7 +55,6 @@ class UserShow extends React.Component {
           ...this.state.user.trips.slice(0, index),
           ...this.state.user.trips.slice(index+1)
         ]
-
         const user = { ...this.state.user, trips }
         this.setState({ user })
       })

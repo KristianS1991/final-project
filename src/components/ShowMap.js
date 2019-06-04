@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl'
 import * as turf from '@turf/turf'
 import axios from 'axios'
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
+mapboxgl.accessToken = process.env.MAPBOX_TOKEN
 
 class ShowMap extends React.Component {
 

@@ -9,15 +9,15 @@ db.create_tables()
 
 with db_session():
     schema = UserSchema()
-    kreeda = User(
-        username='kreeda',
-        email='kreeda@gmail.com',
+    Kristian = User(
+        username='Kristian',
+        email='Kristian@gmail.com',
         password_hash=schema.generate_hash('pass')
     )
 
     # Trips
-    trip_one = Trip(name="Trip One", user=kreeda)
-    trip_two = Trip(name="Trip Two", user=kreeda)
+    trip_one = Trip(name="Trip One", user=Kristian)
+    trip_two = Trip(name="Trip Two", user=Kristian)
 
     # Locations
     location_one = Location(name="Clapham Junction", postcode="SW111PW", latitude=51.4652, longitude=0.1708, trip=trip_one)

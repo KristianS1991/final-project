@@ -8,7 +8,7 @@ from lib.secure_route import secure_route
 
 router = Blueprint(__name__, 'trips')
 
-# Index route for all orders
+# Index route for all trips
 @router.route('/trips', methods=['GET'])
 @db_session
 def index():
@@ -17,7 +17,7 @@ def index():
 
     return schema.dumps(trips)
 
-#show route for particular order based on id
+#show route for particular trip based on id
 @router.route('/trips/<int:trip_id>', methods=['GET'])
 @db_session
 def show(trip_id):
@@ -29,7 +29,7 @@ def show(trip_id):
 
     return schema.dumps(trip)
 
-# create route for creating an order
+# create route for creating a trip
 @router.route('/trips', methods=['POST'])
 @db_session
 @secure_route
@@ -47,7 +47,7 @@ def create():
 
     return schema.dumps(trip), 201
 
-#update route for updating an order
+#update route for updating a trip
 @router.route('/trips/<int:trip_id>', methods=['PUT'])
 @db_session
 @secure_route
@@ -67,7 +67,7 @@ def update(trip_id):
 
     return schema.dumps(trip)
 
-#delete route - delete an order
+#delete route - delete a trip
 @router.route('/trips/<int:trip_id>', methods=['DELETE'])
 @db_session
 @secure_route
@@ -82,8 +82,7 @@ def delete(trip_id):
 
     return '', 204
 
-
-# create route for creating a location
+# create route - create a location
 @router.route('/trips/<int:trip_id>/locations', methods=['POST'])
 @db_session
 @secure_route
@@ -103,8 +102,7 @@ def create_location(trip_id):
 
     return trip_schema.dumps(trip), 200
 
-#
-#delete route - delete an order
+#delete route - delete a location
 @router.route('/trips/<int:trip_id>/locations/<int:location_id>', methods=['DELETE'])
 @db_session
 @secure_route
