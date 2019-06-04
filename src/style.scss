@@ -1,3 +1,8 @@
+main {
+  color: papayawhip;
+  background: black;
+}
+
 .map {
   width: 90vw;
   height: 90vh;
@@ -31,3 +36,58 @@
 .current-marker {
   font-size: 30px;
 }
+
+.add-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.add-flex-home {
+  display: flex;
+  justify-content: center;
+}
+
+.height-adjust-home {
+  height: 75vh;
+}
+
+.height-adjust-profile {
+  height: 59vh;
+
+}
+
+.home-container {
+  display: flex;
+}
+
+.subtitle.is-2.profile-header {
+  margin-bottom: -28px;
+  padding-bottom: 21px;
+  border-bottom: 3px solid black;
+}
+
+.footer {
+  background: papayawhip;
+  color: black;
+}
+
+#footer-text {
+  background: papayawhip;
+  color: black;
+}
+
+#footer-link {
+  background: papayawhip;
+}
+
+.navbar {
+  background: papayawhip;
+}
+
+.navbar-item {
+  color: black;
+}
+
+// .is-2 {
+//   margin-left: 35px;
+// }

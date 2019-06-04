@@ -81,17 +81,17 @@ class UserShow extends React.Component {
   render() {
     if (!this.state.user) return <Loading />
     return (
-      <section>
-        <section className="section user-background">
+      <section className="section container">
+        <p className="subtitle is-2 profile-header">{this.state.user.username}&apos;s Trips</p>
+        <section className="section user-background height-adjust-profile add-flex-profile">
           <div className="container responsive profile">
             <div className="columns is-multiline is-mobile columns-profile">
               <div className="column is-half-desktop">
-                <p className="subtitle is-2">{this.state.user.username}&apos;s Trips</p>
               </div>
             </div>
             <br/>
             <div className="columns is-multiline is-mobile">
-              <div className="column is-three-quarters-desktop">
+              <div className="column is-two-thirds-desktop">
                 <p className="subtitle is-4">Trips</p>
                 {this.state.user.trips &&
                   <div className="container">
@@ -106,7 +106,7 @@ class UserShow extends React.Component {
                   </div>
                   || 'You haven\'t planned any trips yet.'}
               </div>
-              <div className="column is-one-quarter-desktop">
+              <div className="column is-one-third-desktop">
                 <div className="field">
                   <p className="subtitle is-4">New Trip</p>
                   <div className="control">

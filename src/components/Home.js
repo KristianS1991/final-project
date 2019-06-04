@@ -18,13 +18,17 @@ class Home extends React.Component {
 
   render() {
     return (
-      <section className="section home-container">
-        <div className="container title-container has-text-centered">
+    <section className="add-flex">
+      <section className="section home-container height-adjust-home">
+        <div className="container title-container has-text-centered add-flex">
+          <div className="container">
           <h1 className="title logohome is-1"> CheckPoint </h1>
           <h2 className="subtitle is-2"> Plan your road trips and pub crawls! </h2>
           {!Auth.isAuthenticated() && <Link to="/register"><button className="button is-danger">Sign Up</button></Link> || <Link to="/aboutus"><button className="button is-danger">About CheckPoint</button></Link>}
+          </div>
         </div>
       </section>
+    </section>
     )
   }
 }
