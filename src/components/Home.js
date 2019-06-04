@@ -22,8 +22,8 @@ class Home extends React.Component {
           <div className="container title-container has-text-centered add-flex">
             <div className="container">
               <h1 className="title logohome is-1"> CheckPoint </h1>
-              <h2 className="subtitle is-2"> Plan your road trips and pub crawls! </h2>
-              {!Auth.isAuthenticated() && <Link to="/register"><button className="button is-danger">Sign Up</button></Link> || <Link to="/aboutus"><button className="button is-danger">About CheckPoint</button></Link>}
+              <h2 className="subtitle is-2 home-title-2"> Plan your road trips and pub crawls! </h2>
+              {!Auth.isAuthenticated() && <Link to="/register"><button className="button">Sign Up</button></Link> || <Link to="/aboutus"><button className="button">About CheckPoint</button></Link>}
             </div>
           </div>
         </section>

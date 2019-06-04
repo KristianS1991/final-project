@@ -114,7 +114,7 @@ class UserShow extends React.Component {
                       onChange={this.handleChange} />
                   </div>
                 </div>
-                <button className="button is-danger" onClick={this.addTrip}>Add Trip</button>
+                <button className="button" onClick={this.addTrip}>Add Trip</button>
               </div>
             </div>
           </div>

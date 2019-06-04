@@ -3,10 +3,14 @@ main {
   background: black;
 }
 
+.control {
+  text-align: center;
+}
+
 .map {
   width: 90vw;
   height: 90vh;
-  border: solid 5px black;
+  border: solid 5px #ffa4ab;
   margin: 10px auto;
 }
 
@@ -53,17 +57,50 @@ main {
 
 .height-adjust-profile {
   height: 59vh;
-
 }
 
 .home-container {
   display: flex;
 }
 
+.form-edit {
+  margin-top: 50px;
+}
+
 .subtitle.is-2.profile-header {
   margin-bottom: -28px;
   padding-bottom: 21px;
-  border-bottom: 3px solid black;
+  border-bottom: 3px solid papayawhip;
+  color: papayawhip;
+}
+
+.subtitle.is-4 {
+  color: papayawhip;
+}
+
+.navbar-menu.is-active {
+  background: papayawhip;
+}
+
+label.label {
+  color: #ffa4ab;
+}
+
+input.input {
+  border: 4px solid #ffa4ab;
+  border-radius: 2px;
+}
+
+input {
+  height: 40px;
+  width: 200px;
+  border: 4px solid #ffa4ab;
+  border-radius: 2px;
+}
+
+p.subtitle.is-4 {
+  font-size: 40px;
+  margin-bottom: 1.0rem;
 }
 
 .footer {
@@ -86,4 +123,76 @@ main {
 
 .navbar-item {
   color: black;
+}
+
+.navbar-item.navbar-home {
+  color: #ffa4ab;
+  font-weight: bold;
+  text-shadow: 1px 1px black;
+  font-size: 30px;
+}
+
+div.column.is-one-third-desktop {
+  width: 35%;
+  padding: 5px;
+  border: 1px solid papayawhip;
+  margin-left: 17px;
+  text-align: center;
+  height: 50vh;
+  padding-top: 90px;
+}
+
+div.column.is-two-thirds-desktop {
+  width: 60%;
+  padding: 20px;
+  border: 1px solid papayawhip;
+  height: 50vh;
+}
+
+button.button {
+  color: black;
+  background: papayawhip;
+  border: 5px solid #ffa4ab;
+  padding: 1px 14px;
+  font-size: 1.2rem;
+}
+
+.logohome {
+  color: #ffa4ab;
+}
+
+article.media {
+  border: 4px solid #ffa4ab;
+  background-color: papayawhip;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+button.delete {
+  top: 2.8px;
+}
+
+.popup-location {
+  color: black;
+  font-weight: bold;
+}
+
+.home-title-2 {
+  color: grey;
+}
+
+.aboutus-background {
+  padding: 1.1rem 1.5rem 3.2rem 1.5rem;
+}
+
+a.navbar-item {
+  font-weight: bold;
+}
+
+a.navbar-item:hover {
+  background-color: papayawhip;
+  color: #ffa4ab;
 }

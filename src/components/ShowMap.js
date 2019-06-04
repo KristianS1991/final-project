@@ -20,29 +20,8 @@ class ShowMap extends React.Component {
   }
 
   componentDidMount() {
-    // this.map = new mapboxgl.Map({
-    //   container: this.mapCanvas,
-    //   style: 'mapbox://styles/mapbox/streets-v9',
-    //   zoom: this.props.zoom,
-    //   center: this.props.center
-    // })
     this.createMap()
-
-    // const markerElement = document.createElement('div')
-    // markerElement.className = 'current-marker'
-    // markerElement.innerText = ''
-    //
-    // navigator.geolocation.getCurrentPosition(pos => {
-    //   this.currentLocation = new mapboxgl.Marker(markerElement)
-    //     .setLngLat([pos.coords.longitude,pos.coords.latitude])
-    //     .addTo(this.map)
-    // })
     this.markCurrLoc()
-
-    // this.map.flyTo({
-    //   center: this.currentLocation,
-    //   zoom: 12
-    // })
     this.flyToView(this.currentLocation, 12)
   }
 
@@ -79,21 +58,15 @@ class ShowMap extends React.Component {
 
   updateMapView(location) {
     this.bounds.extend([location.longitude, location.latitude])
-
-    // this.map.flyTo({
-    //   center: this.bounds.getCenter(),
-    //   zoom: 12
-    // })
     this.flyToView(this.bounds.getCenter(), 12)
   }
 
-  //generate marker for a new location added to the trip
-  generateMarker(location) {
-
+  generatePopup(location) {
     const popupEl = document.createElement('DIV')
     const locationName = document.createElement('DIV')
     const button = document.createElement('BUTTON')
 
+    locationName.classList.add('popup-location')
     locationName.innerText = location.name
     button.innerText = 'Remove Location'
     button.onclick = () => this.props.removeLocation(location)
@@ -101,9 +74,14 @@ class ShowMap extends React.Component {
     popupEl.appendChild(locationName)
     popupEl.appendChild(button)
 
-    const popup = new mapboxgl.Popup({offset: 25})
+    return new mapboxgl.Popup({offset: 25})
       .setDOMContent(popupEl)
       .addTo(this.map)
+  }
+
+  //generate marker for a new location added to the trip
+  generateMarker(location) {
+    const popup = this.generatePopup(location)
 
     const marker = new mapboxgl.Marker()
       .setLngLat([location.longitude, location.latitude])
