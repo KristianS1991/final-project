@@ -44,7 +44,7 @@ class Register extends React.Component {
                     <div className="control">
                       <input className="input"
                         name="username"
-                        placeholder="eg: leela3000"
+                        placeholder="eg: User100"
                         onChange={this.handleChange} />
                     </div>
                     {this.state.errors.username && <div className="help is-danger">{this.state.errors.username}</div>}
@@ -55,7 +55,7 @@ class Register extends React.Component {
                     <div className="control">
                       <input className="input"
                         name="email"
-                        placeholder="eg: leela@planetexpress.nnyc" onChange={this.handleChange} />
+                        placeholder="eg: user@gmail.com" onChange={this.handleChange} />
                     </div>
                     {this.state.errors.email && <div className="help is-danger">{this.state.errors.email}</div>}
                   </div>
