@@ -24,7 +24,7 @@ with db_session():
     location_one = Location(name="Clapham Junction", postcode="SW111PW", latitude=51.4652, longitude=-0.1708, trip=trip_one)
     location_two = Location(name="Vauxhall", postcode="SW84ET", latitude=51.4862, longitude=-0.1229, trip=trip_one)
     location_three = Location(name="Southfields", postcode="SW196LL", latitude=51.4448, longitude=-0.2068, trip=trip_one)
-    
+
     # Locations - Trip Two
     location_four = Location(name="Bethnal Green", postcode="E20ET", latitude=51.5273, longitude=0.0555, trip=trip_two)
     location_five = Location(name="Mile End", postcode="E34PH", latitude=51.5251, longitude=0.0334, trip=trip_two)
