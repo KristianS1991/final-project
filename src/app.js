@@ -9,7 +9,7 @@ import Login from './auth/Login'
 import AboutUs from './components/AboutUs'
 import Footer from './components/Footer'
 
-import UserDisplay from './components/UserDisplay'
+import UserShow from './components/UserShow'
 import TripShow from './components/TripShow'
 // import TripMap from './components/TripMap'
 // import UserEdit from './components/UserEdit'
@@ -29,7 +29,7 @@ class App extends React.Component {
             <Route path="/users/:id/edit" component={UserEdit}/>
             <Route path="/addtrip" component={AddTrip}/>*/}
             <Route path="/trips/:id" component={TripShow}/>
-            <Route path="/users/:id" component={UserDisplay}/>
+            <Route path="/users/:id" component={UserShow}/>
             <Route path="/aboutus" component={AboutUs}/>
             <Route path="/register" component={Register}/>
             <Route path="/login" component={Login}/>

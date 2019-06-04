@@ -28,7 +28,6 @@ class TripShow extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.removeLocation = this.removeLocation.bind(this)
-    this.getDirections = this.getDirections.bind(this)
 
   }
 
@@ -42,24 +41,6 @@ class TripShow extends React.Component {
         polylineCoords: []
       }))
       .catch((err) => this.setState({errors: err.response.data.error}))
-  }
-
-  getDirections(coordinates) {
-
-    axios.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}.json`, {
-      params: {
-        access_token: 'pk.eyJ1Ijoia3JlZWRhIiwiYSI6ImNqdzd5cDcybDBwaDk0Ym80MWtyZWExdW4ifQ.7DAQG_E6Yzql2DamyP-_qg',
-        geometries: 'geojson'
-      }
-    })
-      .then(res => {
-        this.setState({
-          polylineCoords: res.data.routes[0].geometry.coordinates,
-          newLocation: false
-        })
-      })
-      .catch((err) => this.setState({errors: err}))
-
   }
 
 
@@ -90,9 +71,7 @@ class TripShow extends React.Component {
 
   }
 
-
   render() {
-
     return (
       <div>
         <ShowMap
@@ -100,7 +79,6 @@ class TripShow extends React.Component {
           center={this.state.center}
           zoom={this.state.zoom}
           removeLocation={this.removeLocation}
-          polylineCoords={this.state.polylineCoords}
           getDirections={this.getDirections}
           newLocation={this.state.newLocation}
         />
@@ -108,9 +86,7 @@ class TripShow extends React.Component {
           passedChange={this.handleChange}
           passedSubmit={this.handleSubmit}
         />
-
       </div>
-
     )
   }
 }

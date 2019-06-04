@@ -15,3 +15,15 @@
   border: solid 5px black;
   border-radius: 10px;
 }
+
+.map-form-info {
+  position: absolute;
+  z-index: 1;
+  bottom: 8vh;
+  right: 8vw;
+  background: gray;
+  padding: 10px;
+  border: solid 5px black;
+  border-radius: 10px;
+  font-weight: bold;
+}

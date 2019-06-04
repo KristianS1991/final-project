@@ -1,11 +1,10 @@
 import React from 'react'
-// import { Link } from 'react-router-dom'
 import axios from 'axios'
 import Auth from '../lib/Auth'
 import Loading from './Loading'
 import TripCard from './TripCard'
 
-class UserDisplay extends React.Component {
+class UserShow extends React.Component {
 
   constructor(props) {
     super(props)
@@ -19,7 +18,6 @@ class UserDisplay extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.addTrip = this.addTrip.bind(this)
     this.deleteTrip = this.deleteTrip.bind(this)
-    //this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(e) {
@@ -41,7 +39,6 @@ class UserDisplay extends React.Component {
     axios.post('/api/trips', this.state.data, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-    // change the below
       .then((res) => this.props.history.push(`/trips/${res.data.id}`))
       .catch((err) => {
         this.setState({errors: err.response.data.error})
@@ -52,7 +49,6 @@ class UserDisplay extends React.Component {
     axios.delete(`/api/trips/${id}`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-    // change the below
       .then(() => {
         const index = this.state.user.trips.findIndex(trip => trip.id === id)
         const trips = [
@@ -64,7 +60,6 @@ class UserDisplay extends React.Component {
         this.setState({ user })
       })
       .catch((err) => {
-        console.log(err)
         this.setState({errors: err.response.data.error})
       })
   }
@@ -90,56 +85,38 @@ class UserDisplay extends React.Component {
         <section className="section user-background">
           <div className="container responsive profile">
             <div className="columns is-multiline is-mobile columns-profile">
-              <div className="column is-half-desktop img-profile">
-                <figure className="image-profile">
-                  <img className="image-profile" src={this.state.user.image || 'https://i0.wp.com/reviveyouthandfamily.org/wp-content/uploads/2013/01/headshot-placeholder.jpg?fit=600%2C600&ssl=1'} alt={this.state.user.name} />
-                </figure>
-              </div>
               <div className="column is-half-desktop">
-                <p className="subtitle is-4">Name: {this.state.user.username}</p>
-                <p className="subtitle">Current Location: {this.state.user.location}</p>
-                <div className="container is-flex">
-                  <div className="field">
-                    <label className="label is-small">New Trip</label>
-                    <div className="control">
-                      <input name="name"
-                        placeholder="Enter Trip Name Here"
-                        onChange={this.handleChange} />
-                    </div>
-                    {/*{this.state.errors.email && <div className="help is-danger">{this.state.errors.email}</div>}*/}
-                  </div>
-                  {/*<Link to ={{
-                    pathname: '/addtrip',
-                    state: {id: this.props.match.params.id}
-                  }}>*/}
-                  <button className="button is-danger" onClick={this.addTrip}>Add Trip</button>
-                  {/*</Link>*/}
-
-                </div>
+                <p className="subtitle is-2">{this.state.user.username}&apos;s Trips</p>
               </div>
             </div>
             <br/>
             <div className="columns is-multiline is-mobile">
-              <hr />
-
-              <div className="column is-full-desktop">
+              <div className="column is-three-quarters-desktop">
                 <p className="subtitle is-4">Trips</p>
+                {this.state.user.trips &&
+                  <div className="container">
+                    {this.state.user.trips.map(trip =>
+                      <div key={trip.id}>
+                        <TripCard
+                          {...trip}
+                          deleteTrip={this.deleteTrip}
+                        />
+                      </div>
+                    )}
+                  </div>
+                  || 'You haven\'t planned any trips yet.'}
               </div>
-              {this.state.user.trips &&
-              <div className="container">
-
-                <div className="column is-desktop">
-                  {this.state.user.trips.map(trip =>
-                    <div key={trip.id}>
-                      <TripCard
-                        {...trip}
-                        deleteTrip={this.deleteTrip}
-                      />
-                    </div>
-                  )}
+              <div className="column is-one-quarter-desktop">
+                <div className="field">
+                  <p className="subtitle is-4">New Trip</p>
+                  <div className="control">
+                    <input name="name"
+                      placeholder="Enter Trip Name Here"
+                      onChange={this.handleChange} />
+                  </div>
                 </div>
+                <button className="button is-danger" onClick={this.addTrip}>Add Trip</button>
               </div>
-              || 'You haven\'t planend any trips yet.'}
             </div>
           </div>
         </section>
@@ -148,4 +125,4 @@ class UserDisplay extends React.Component {
   }
 }
 
-export default UserDisplay
+export default UserShow

@@ -1,6 +1,7 @@
 import React from 'react'
 import mapboxgl from 'mapbox-gl'
 import * as turf from '@turf/turf'
+import axios from 'axios'
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
 
@@ -8,6 +9,10 @@ class ShowMap extends React.Component {
 
   constructor(props) {
     super(props)
+
+    this.state = {
+      distance: 0
+    }
 
     this.markers = []
     this.bounds = new mapboxgl.LngLatBounds()
@@ -23,14 +28,9 @@ class ShowMap extends React.Component {
     })
 
     navigator.geolocation.getCurrentPosition(pos => {
-      if(!this.props.polylineCoords.length) {
-        this.map.flyTo({
-          center: [pos.coords.longitude,pos.coords.latitude],
-          zoom: 14
-        })
-      }
-
-      this.currentLocation = new mapboxgl.Marker()
+      this.currentLocation = new mapboxgl.Marker({properties: {
+        'marker-color': 'red'
+      }})
         .setLngLat([pos.coords.longitude,pos.coords.latitude])
         .addTo(this.map)
     })
@@ -85,7 +85,7 @@ class ShowMap extends React.Component {
     }
   }
 
-  generatePolyline() {
+  generatePolyline(polylineCoords) {
     this.route = {
       'id': 'route',
       'type': 'line',
@@ -96,7 +96,7 @@ class ShowMap extends React.Component {
           'properties': {},
           'geometry': {
             'type': 'LineString',
-            'coordinates': this.props.polylineCoords
+            'coordinates': polylineCoords
           }
         }
       },
@@ -111,16 +111,16 @@ class ShowMap extends React.Component {
     }
 
     this.map.addLayer(this.route)
-    this.generatePoint()
+    this.generatePoint(polylineCoords)
   }
 
-  generatePoint() {
+  generatePoint(polylineCoords) {
     this.pointData = {
       'type': 'Feature',
       'properties': {},
       'geometry': {
         'type': 'Point',
-        'coordinates': this.props.polylineCoords[0]
+        'coordinates': polylineCoords[0]
       }}
 
     this.point = {
@@ -143,22 +143,20 @@ class ShowMap extends React.Component {
 
     this.map.addLayer(this.point)
 
-    this.animatePrep()
+    this.animatePrep(polylineCoords)
   }
 
-  animatePrep() {
-    const lineString = turf.lineString(this.props.polylineCoords)
-    this.lineDistance = turf.length(lineString, {units: 'kilometers'})
-
-    console.log(this.lineDistance)
+  animatePrep(polylineCoords) {
+    const lineString = turf.lineString(polylineCoords)
+    const lineDistance = turf.length(lineString, {units: 'kilometers'})
+    this.setState({ distance: lineDistance.toFixed(2) })
 
     this.path = []
-    // this.steps = 500
     //steps = [100 steps / km]
-    this.steps = Math.ceil(this.lineDistance * 100)
+    this.steps = Math.ceil(lineDistance * 100)
     this.counter = 0
 
-    for (var i = 0; i < this.lineDistance; i += this.lineDistance/this.steps) {
+    for (var i = 0; i < lineDistance; i += lineDistance/this.steps) {
       var segment = turf.along(lineString, i, {units: 'kilometers'})
       this.path.push(segment.geometry.coordinates)
     }
@@ -175,7 +173,7 @@ class ShowMap extends React.Component {
       turf.point(this.path[this.counter >= this.steps ? this.counter : this.counter + 1])
     )
     //
-    this.map.getSource('point').setData(this.pointData)
+    if(this.map.getSource('point')) this.map.getSource('point').setData(this.pointData)
     //
     if (this.counter < this.steps) {
       requestAnimationFrame(this.animate)
@@ -195,37 +193,44 @@ class ShowMap extends React.Component {
       .map(location => `${location.longitude},${location.latitude}`)
       .join(';')
 
-    this.props.getDirections(locations)
+    this.getDirections(locations)
+
+  }
+
+  getDirections(coordinates) {
+
+    axios.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}.json`, {
+      params: {
+        access_token: 'pk.eyJ1Ijoia3JlZWRhIiwiYSI6ImNqdzd5cDcybDBwaDk0Ym80MWtyZWExdW4ifQ.7DAQG_E6Yzql2DamyP-_qg',
+        geometries: 'geojson'
+      }
+    })
+      .then(res => {
+        this.generatePolyline(res.data.routes[0].geometry.coordinates)
+      })
+      .catch((err) => this.setState({errors: err}))
 
   }
 
   componentDidUpdate(prevProps) {
-
+    if(prevProps.locations.length === this.props.locations.length) return false
     //reset the markers
-    if(prevProps.locations.length !== this.props.locations.length) {
-      this.markers.forEach(marker => marker.remove())
-      this.markers = this.props.locations.map(location => this.generateMarker(location))
-    }
+    this.markers.forEach(marker => marker.remove())
+    this.markers = this.props.locations.map(location => this.generateMarker(location))
 
     //trigger the sequence for getting the polyline data if there is > one location
-    if(this.props.locations.length > 1 && this.props.newLocation) {
-      this.createURLstr()
-    }
-
+    this.createURLstr()
     this.removeRoute()
-
-    // generate the polyline if the array of lat,lng coordinates exists
-    if(this.props.polylineCoords.length) {
-      this.generatePolyline()
-    }
-
   }
 
   render() {
-
     return (
       <div>
         <div ref={el => this.mapCanvas = el} className="map" />
+        <div className="map-form-info">
+          <p>Total Distance: {this.state.distance} km</p>
+          <p>Number of Stops: {this.props.locations.length}</p>
+        </div>
       </div>
     )
 
