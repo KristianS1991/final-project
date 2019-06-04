@@ -39,7 +39,7 @@ class ShowMap extends React.Component {
 
     this.map.flyTo({
       center: this.currentLocation,
-      zoom: 13
+      zoom: 12
     })
   }
 
@@ -48,7 +48,7 @@ class ShowMap extends React.Component {
 
     this.map.flyTo({
       center: this.bounds.getCenter(),
-      zoom: 13
+      zoom: 12
     })
   }
 
@@ -160,7 +160,7 @@ class ShowMap extends React.Component {
 
     this.path = []
     //steps = [100 steps / km]
-    this.steps = Math.ceil(lineDistance * 30)
+    this.steps = Math.ceil(lineDistance * 100)
     // this.steps = 500
     this.counter = 0
 
