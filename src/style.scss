@@ -83,13 +83,15 @@ main {
 }
 
 label.label {
-  color: #ffa4ab;
+  color: black;
+  font-size: 14px;
 }
 
 input.input {
   border: 4px solid #ffa4ab;
   border-radius: 2px;
 }
+
 
 input {
   height: 40px;
@@ -195,4 +197,22 @@ a.navbar-item {
 a.navbar-item:hover {
   background-color: papayawhip;
   color: #ffa4ab;
+}
+
+.map-input {
+  border: 3px solid black;
+  border-radius: 2px;
+}
+
+.map-submit {
+  font-size: 15px;
+  font-weight: bold;
+  border: 3px solid black;
+  border-radius: 4px;
+  background-color: papayawhip;
+  padding: 10px;
+}
+
+.map-extra {
+  color: black;
 }

@@ -9,7 +9,9 @@ const LocationForm = ({ passedChange, passedSubmit }) => {
         <div className="field">
           <label className="label">Location Name</label>
           <div className="control">
-            <input name="name"
+            <input
+              className="map-input"
+              name="name"
               placeholder="eg: The Dolphin"
               onChange={passedChange} />
           </div>
@@ -18,13 +20,15 @@ const LocationForm = ({ passedChange, passedSubmit }) => {
         <div className="field">
           <label className="label">Postcode</label>
           <div className="control">
-            <input name="postcode"
+            <input
+              className="map-input"
+              name="postcode"
               placeholder="E9 7HN"
               onChange={passedChange} />
           </div>
         </div>
 
-        <button className="button submit-edit-button">Submit</button>
+        <button className="map-submit">Submit</button>
       </form>
     </div>
   )

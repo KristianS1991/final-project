@@ -248,7 +248,7 @@ class ShowMap extends React.Component {
     return (
       <div>
         <div ref={el => this.mapCanvas = el} className="map" />
-        <div className="map-form-info">
+        <div className="map-form-info map-extra">
           <p>Total Distance: {this.state.distance} km</p>
           <p>Number of Stops: {this.props.locations.length}</p>
         </div>
