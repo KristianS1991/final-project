@@ -160,7 +160,8 @@ class ShowMap extends React.Component {
 
     this.path = []
     //steps = [100 steps / km]
-    this.steps = Math.ceil(lineDistance * 100)
+    this.steps = Math.ceil(lineDistance * 30)
+    // this.steps = 500
     this.counter = 0
 
     for (var i = 0; i < lineDistance; i += lineDistance/this.steps) {
