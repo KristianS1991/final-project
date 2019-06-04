@@ -27,12 +27,20 @@ class ShowMap extends React.Component {
       center: this.props.center
     })
 
+    const markerElement = document.createElement('div')
+    markerElement.className = 'bar-marker'
+    markerElement.innerText = '🏠'
+
     navigator.geolocation.getCurrentPosition(pos => {
-      this.currentLocation = new mapboxgl.Marker({properties: {
-        'marker-color': 'red'
-      }})
+      this.currentLocation = new mapboxgl.Marker(markerElement)
         .setLngLat([pos.coords.longitude,pos.coords.latitude])
         .addTo(this.map)
+    })
+
+
+    this.map.flyTo({
+      center: this.currentLocation,
+      zoom: 13
     })
   }
 
