@@ -1,5 +1,6 @@
 import React from 'react'
 
+// child component of TripShow for inputing locations to a trip
 const LocationForm = ({ passedChange, passedSubmit }) => {
 
   return (

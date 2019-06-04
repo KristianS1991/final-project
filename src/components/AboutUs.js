@@ -1,5 +1,6 @@
 import React from 'react'
 
+// dumb component for displaying a mock 'aboutus' page
 const AboutUs = () => {
 
   return (

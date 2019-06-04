@@ -159,9 +159,8 @@ class ShowMap extends React.Component {
     this.setState({ distance: lineDistance.toFixed(2) })
 
     this.path = []
-    //steps = [100 steps / km]
+    //set the frame rate to 100 steps per kilometer
     this.steps = Math.ceil(lineDistance * 100)
-    // this.steps = 500
     this.counter = 0
 
     for (var i = 0; i < lineDistance; i += lineDistance/this.steps) {

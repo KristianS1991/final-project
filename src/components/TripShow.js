@@ -1,12 +1,13 @@
 import React from 'react'
-import axios from 'axios'
-//import {Link} from 'react-router-dom'
+
 import Auth from '../lib/Auth'
 import ShowMap from './ShowMap'
 import LocationForm from './LocationForm'
+
+import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4M29iazA2Z2gycXA4N2pmbDZmangifQ.-g_vE53SD2WrJ6tFX7QHmA'
+mapboxgl.accessToken = process.env.MAPBOX_TOKEN
 
 class TripShow extends React.Component {
   constructor(props) {
@@ -14,9 +15,7 @@ class TripShow extends React.Component {
     this.state = {
       center: [-0.07, 51.515],
       zoom: 5,
-      data: {
-        // trip: this.props.match.params.id
-      },
+      data: {},
       trip: {
         locations: []
       },
@@ -28,7 +27,6 @@ class TripShow extends React.Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.removeLocation = this.removeLocation.bind(this)
-
   }
 
   removeLocation(location) {

@@ -11,8 +11,6 @@ import Footer from './components/Footer'
 
 import UserShow from './components/UserShow'
 import TripShow from './components/TripShow'
-// import TripMap from './components/TripMap'
-// import UserEdit from './components/UserEdit'
 
 import 'mapbox-gl/dist/mapbox-gl.css'
 import 'bulma'
@@ -25,9 +23,6 @@ class App extends React.Component {
         <main>
           <Navbar />
           <Switch>
-            {/*<Route path="/users/:id/matches" component={MatchIndex}/>
-            <Route path="/users/:id/edit" component={UserEdit}/>
-            <Route path="/addtrip" component={AddTrip}/>*/}
             <Route path="/trips/:id" component={TripShow}/>
             <Route path="/users/:id" component={UserShow}/>
             <Route path="/aboutus" component={AboutUs}/>
