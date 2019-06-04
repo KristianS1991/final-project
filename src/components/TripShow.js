@@ -13,7 +13,7 @@ class TripShow extends React.Component {
     super(props)
     this.state = {
       center: [-0.07, 51.515],
-      zoom: 10,
+      zoom: 5,
       data: {
         // trip: this.props.match.params.id
       },

@@ -28,7 +28,7 @@ class ShowMap extends React.Component {
     })
 
     const markerElement = document.createElement('div')
-    markerElement.className = 'bar-marker'
+    markerElement.className = 'current-marker'
     markerElement.innerText = '🏠'
 
     navigator.geolocation.getCurrentPosition(pos => {
@@ -36,7 +36,6 @@ class ShowMap extends React.Component {
         .setLngLat([pos.coords.longitude,pos.coords.latitude])
         .addTo(this.map)
     })
-
 
     this.map.flyTo({
       center: this.currentLocation,
