@@ -20,13 +20,44 @@ class ShowMap extends React.Component {
   }
 
   componentDidMount() {
+    // this.map = new mapboxgl.Map({
+    //   container: this.mapCanvas,
+    //   style: 'mapbox://styles/mapbox/streets-v9',
+    //   zoom: this.props.zoom,
+    //   center: this.props.center
+    // })
+    this.createMap()
+
+    // const markerElement = document.createElement('div')
+    // markerElement.className = 'current-marker'
+    // markerElement.innerText = ''
+    //
+    // navigator.geolocation.getCurrentPosition(pos => {
+    //   this.currentLocation = new mapboxgl.Marker(markerElement)
+    //     .setLngLat([pos.coords.longitude,pos.coords.latitude])
+    //     .addTo(this.map)
+    // })
+    this.markCurrLoc()
+
+    // this.map.flyTo({
+    //   center: this.currentLocation,
+    //   zoom: 12
+    // })
+    this.flyToView(this.currentLocation, 12)
+  }
+
+  //create the map
+  createMap() {
     this.map = new mapboxgl.Map({
       container: this.mapCanvas,
       style: 'mapbox://styles/mapbox/streets-v9',
       zoom: this.props.zoom,
       center: this.props.center
     })
+  }
 
+  // mark the current location
+  markCurrLoc() {
     const markerElement = document.createElement('div')
     markerElement.className = 'current-marker'
     markerElement.innerText = '🏠'
@@ -36,22 +67,27 @@ class ShowMap extends React.Component {
         .setLngLat([pos.coords.longitude,pos.coords.latitude])
         .addTo(this.map)
     })
+  }
 
+  //fly to the location of interest - either current location or new route
+  flyToView(center, zoom) {
     this.map.flyTo({
-      center: this.currentLocation,
-      zoom: 12
+      center: center,
+      zoom: zoom
     })
   }
 
   updateMapView(location) {
     this.bounds.extend([location.longitude, location.latitude])
 
-    this.map.flyTo({
-      center: this.bounds.getCenter(),
-      zoom: 12
-    })
+    // this.map.flyTo({
+    //   center: this.bounds.getCenter(),
+    //   zoom: 12
+    // })
+    this.flyToView(this.bounds.getCenter(), 12)
   }
 
+  //generate marker for a new location added to the trip
   generateMarker(location) {
 
     const popupEl = document.createElement('DIV')
