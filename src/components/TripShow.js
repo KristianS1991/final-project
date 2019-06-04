@@ -44,10 +44,6 @@ class TripShow extends React.Component {
       .catch((err) => this.setState({errors: err.response.data.error}))
   }
 
-  // generatePolyline() {
-  //   console.log('polyline generating')
-  // }
-
   getDirections(coordinates) {
 
     axios.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}.json`, {
@@ -62,10 +58,6 @@ class TripShow extends React.Component {
           newLocation: false
         })
       })
-      // .then(() => console.log(this.state.polylineCoords))
-      // .then(() => {
-      //   this.generatePolyline()
-      // })
       .catch((err) => this.setState({errors: err}))
 
   }

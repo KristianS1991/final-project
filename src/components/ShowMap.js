@@ -83,7 +83,6 @@ class ShowMap extends React.Component {
     if(mapPointLayer) {
       this.map.removeLayer('point').removeSource('point')
     }
-
   }
 
   generatePolyline() {

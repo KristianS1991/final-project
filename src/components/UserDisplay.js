@@ -18,20 +18,23 @@ class UserDisplay extends React.Component {
 
     this.handleChange = this.handleChange.bind(this)
     this.addTrip = this.addTrip.bind(this)
+    this.deleteTrip = this.deleteTrip.bind(this)
     //this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(e) {
     const data = { ...this.state.data, [e.target.name]: e.target.value }
     this.setState({ data: data })
-    console.log(this.state.data)
   }
 
   getUser() {
     axios.get(`/api/users/${this.props.match.params.id}`, {
       headers: { Authorization: `Bearer ${Auth.getToken()}` }
     })
-      .then(res => this.setState({ user: res.data }))
+      .then(res => {
+        res.data.trips.sort((a, b) => a.id - b.id)
+        this.setState({ user: res.data })
+      })
   }
 
   addTrip() {
@@ -41,6 +44,27 @@ class UserDisplay extends React.Component {
     // change the below
       .then((res) => this.props.history.push(`/trips/${res.data.id}`))
       .catch((err) => {
+        this.setState({errors: err.response.data.error})
+      })
+  }
+
+  deleteTrip(id) {
+    axios.delete(`/api/trips/${id}`, {
+      headers: { Authorization: `Bearer ${Auth.getToken()}` }
+    })
+    // change the below
+      .then(() => {
+        const index = this.state.user.trips.findIndex(trip => trip.id === id)
+        const trips = [
+          ...this.state.user.trips.slice(0, index),
+          ...this.state.user.trips.slice(index+1)
+        ]
+
+        const user = { ...this.state.user, trips }
+        this.setState({ user })
+      })
+      .catch((err) => {
+        console.log(err)
         this.setState({errors: err.response.data.error})
       })
   }
@@ -107,7 +131,10 @@ class UserDisplay extends React.Component {
                 <div className="column is-desktop">
                   {this.state.user.trips.map(trip =>
                     <div key={trip.id}>
-                      <TripCard {...trip} />
+                      <TripCard
+                        {...trip}
+                        deleteTrip={this.deleteTrip}
+                      />
                     </div>
                   )}
                 </div>

@@ -1,5 +1,5 @@
 from app import app
-from controllers import trips, auth, locations
+from controllers import trips, auth
 
 app.register_blueprint(trips.router, url_prefix='/api')
 app.register_blueprint(auth.router, url_prefix='/api')

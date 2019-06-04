@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const TripCard = ({ id, name, locations }) => {
+const TripCard = ({ id, name, locations, deleteTrip }) => {
 
   //Change the link below to reroute to the specific trip, maybe put in loop
   return (
-    <Link to ={`/trips/${id}`}>
-      <article className="media">
+    <article className="media">
+      <Link to ={`/trips/${id}`}>
         <div className="media-content">
           <div className="content">
             <p>
@@ -17,11 +17,11 @@ const TripCard = ({ id, name, locations }) => {
             </p>
           </div>
         </div>
-        <div className="media-right">
-          <button className="delete"></button>
-        </div>
-      </article>
-    </Link>
+      </Link>
+      <div className="media-right">
+        <button className="delete" onClick={() => deleteTrip(id)}></button>
+      </div>
+    </article>
   )
 }
 
