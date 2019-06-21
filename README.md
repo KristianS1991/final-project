@@ -1,1 +1,7 @@
 # final-project
+
+For my final project, I created a fullstack app using MapBox that allows the user to plan out a trip anywhere in the UK. The user experience can be broken down as follows. After a user registers and log’s in, they are brought to their user profile, where they have the option to add a new trip, edit an existing trip, or delete an existing trip. If they decide to add a new trip, they are redirected to a page displaying a map of their current location. This page contains a form which allows you to add new locations to your trip. A pop up appears when you click the marker of a location, displaying the location name, and also giving you the option to remove the location. As each location is added or removed, the trip details and the directions (plotted on the map as a line) between locations are updated. A small table in the bottom right corner displays the total distance of the trip and the number of stops on the trip.
+
+I built this app starting with the back-end, utilizing Python, Flask, and PostgreSQL coupled with an SQL database. Then I proceeded to build the front-end, using JavaScript and React. The app also implements the MapBox and British Postcodes API’s for data related to new locations and routes to the map.
+
+I really enjoyed the entire development process of creating this app. From designing wireframes and then building their corresponding React components, to drawing entity-relationship models for each table and coding their models, controllers, and routes in Flask. 
