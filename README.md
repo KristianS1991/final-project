@@ -6,7 +6,7 @@ I built this app starting with the back-end, utilizing Python, Flask, and Postgr
 
 I really enjoyed the entire development process of creating this app. From designing wireframes and then building their corresponding React components, to drawing entity-relationship models for each table and coding their models, controllers, and routes in Flask. 
 
-# SEI Project Four, Full-Stack Application (React, Flask, SQL) - CheckPoint
+# SEI Project Four, Full-Stack Application - CheckPoint
 
 ## Timeframe
 1 Week
@@ -31,7 +31,7 @@ For our second project, we were put into groups of two and given a timeframe of 
 We decided to create an application that displays up-to-date data for five professional football leagues in Europe. By implementing the football-data.org API, we were able to display stats for the clubs and standings in each league, and the roster of each club.
 
 #### Website Navigation
-![Football Data Centre](https://i.imgur.com/yBPlFF7.gif)
+![Football Data Centre]()
 
 #### Key Takeaways
 The main purpose of this project was to develop an introductory understanding of the React framework, as well as how to make AJAX requests to APIs and utilize the response. A big takeaway from this exercise was related to how data exists in React. We learned that in a React component, there are two main types of data: 'state' and 'props'. 'State' is data specific to that component, directly initialized within that component. 'Props' is data passed to a component by another component, usually a parent or sibling component.
@@ -40,13 +40,13 @@ The main purpose of this project was to develop an introductory understanding of
 The React lifecycle methods were another crucial topic we gained experience with. The basic setup of each React component starts with defining a class that is an extension of `React.component`. This is followed by creating the `constructor()` function and calling the `super()` function inside to pull down all relevant properties and methods from the base class. The state of the component is also defined within the constructor function. Next, the `render()` function, which is the only mandatory method for a React component, is defined. The `render()` function is responsible for rendering the content of the component to the user interface. The `render()` function runs during the mounting and updating of a component. When a component loads, the `componentDidMount()` function runs once and the component then re-renders. Anytime the state of the component is updated, the `componentDidUpdate()` function runs, and the component then re-renders.
 
 #### React Lifecycle Diagram
-![React Lifecycle](https://i.imgur.com/mVMz8AH.png)
+![React Lifecycle]()
 
 #### AJAX Requests
 Another important topic we learned about during this project was AJAX requests. In the context of our project, an AJAX 'GET' request was made to the football-data.org API in order to obtain a response, which we could manipulate and apply to our webpage. An ideal location to make an AJAX request, if the page is not expected to be updated by the user, is within the `componentDidMount()` function. We made our 'GET' requests using the `fetch()` method, providing the API URL and an object containing the type of request and the authorization header as parameters. The `fetch()` call returns a promise, in the form of a response object, which is then converted into JSON, before the data of interest is stored in state. To change state within a component (besides manually changing it in the `constructor()` function), one must use the `.setState()` method. Also, if an error occurs when making an AJAX request, the `.catch()` method catches the error and allows the developer to display it for development purposes, and in some cases, display this error to the user, ie. invalid password, etc.
 
 #### Example GET Request from our Competitions Component
-![Example GET Request](https://i.imgur.com/GlkMiiy.png)
+![Example GET Request]()
 
 #### Styling
 The styling for this application is made up of a combination of the Bulma framework, CSS, and the Animate.css library. Bulma is a framework for CSS, which is very useful for creating general page layouts, however, it is difficult to use this to apply specific styles to HTML elements. Therefore, we added classes and used these to overwrite some of the default Bulma styling in our `style.css` file. We then found an open-source CSS animation library online, and implemented some animations to bring our pages to life.
