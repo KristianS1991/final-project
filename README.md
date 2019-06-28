@@ -93,7 +93,7 @@ One of the biggest challenges of this project was getting the map to display the
 
 ##### Plotting the Route between Locations
 Getting the Directions & Coordinates:
-![Route Plotting Code 1](https://i.imgur.com/a3inRB2.png)
+![Route Plotting Code 1](https://i.imgur.com/eGo5IPd.png)
 
 Plotting the Polyline:
 ![Route Plotting Code 2](https://i.imgur.com/fE6DIl7.png)
