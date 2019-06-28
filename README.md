@@ -36,7 +36,7 @@ For our final project, we were given a timeframe of one week to complete a full-
 We were to pick a theme, and create a full-stack application that handles the storage of user data in an SQL database. A user would need to be able to register, login, and based on the theme of the app, create some type of data that would be stored and recognized by the database as being related to that user. For bundling and deployment purposes, we were required to use the module builder Webpack.
 
 ## Project Overview
-I decided to create an application that allows a user to plan road trips in the UK. By implementing the Mapbox GL JS API, I built a site that lets the user create new trips or edit an existing trip. On the homepage, the user is prompted to register if they are not logged in. After registering, they are redirected to a login page. After logging in, the user is brought to the user's profile page. This page displays the user's existing trips, giving them the option to view, edit, or delete a trip. The user also has the option of creating a new trip. 
+I decided to create an application that allows a user to plan road trips in the UK. By implementing the Mapbox GL JS and British Postcodes APIs, I built a site that lets the user create new trips or edit an existing trip. On the homepage, the user is prompted to register if they are not logged in. After registering, they are redirected to a login page. After logging in, the user is brought to the user's profile page. This page displays the user's existing trips, giving them the option to view, edit, or delete a trip. The user also has the option of creating a new trip. 
 
 If the user decides to add a new trip, they are redirected to a page displaying a map of their current location. This page contains a form which allows you to add new locations to your trip. A pop up appears when you click the marker of a location, displaying the location name, and also giving you the option to remove the location. As each location is added or removed, the trip details and the directions (plotted on the map as a line) between locations are updated. A small table in the bottom right corner displays the total distance of the trip and the number of stops on the trip.
 
@@ -55,8 +55,8 @@ Once the user has logged in, a 'GET' request was made to the API I created to re
 Adding locations to the database required making two AJAX requests. The first being a 'POST' request from the front-end, handled by the `handleSubmit()` function in the `TripShow` component. The second request was made from the back-end, within the `Location` model. This was a 'GET' request made to the British Postcodes API, where the request contained the postcode of the location the user entered. With that postcode, this API, returned the corresponding geographic data from which the latitude and longitude coordinates were taken and stored as properties on that location.
 
 #### AJAX Requests for Adding a New Location
-![Location AJAX Request 1]()
-![Location AJAX Request 2]()
+![Location AJAX Request 1](https://i.imgur.com/ScxmVvk.png)
+![Location AJAX Request 2](https://i.imgur.com/RhN6h70.png)
 
 ## Process Breakdown
 The process of creating this application can be broken down into a series of stages as follows:
