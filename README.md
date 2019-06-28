@@ -46,27 +46,23 @@ If the user decides to add a new trip, they are redirected to a page displaying 
 #### Entity-Relationship Model
 Once a user registers, their data is stored in the SQL database. A user can then create multiple trips, each of which can have multiple locations. The trips are stored in the database as part of a one-to-many relationship, where each trip can have one user and each user can have many trips. Each trip is made up of different locations, which makes up another one-to-many relationship, where each location can have one trip and each trip can have many locations.
 
-#### Key Takeaways
-The main purpose of this project was to develop an introductory understanding of the React framework, as well as how to make AJAX requests to APIs and utilize the response. A big takeaway from this exercise was related to how data exists in React. We learned that in a React component, there are two main types of data: 'state' and 'props'. 'State' is data specific to that component, directly initialized within that component. 'Props' is data passed to a component by another component, usually a parent or sibling component.
-
 #### AJAX Requests
 To handle AJAX requests, we used the Axios Javascript library. The biggest difference between using Axios, rather than, `fetch()`, is that you save yourself the step of having to convert the response to a JSON object before manipulating it and setting it to state.
 
 Once the user has logged in, a 'GET' request was made to the API I created to return the user's existing trips. Upon creating a new trip, a 'POST' request is made to the API to add the trip and the user is then directed to the map display page where additional 'POST' requests are made but this time for the locations the previous trip contains. On the map display page, 'DELETE' requests are made when the user removes a location from a trip. I created the functions, `handleSubmit()` and `removeLocation()` to handle the functionality for the 'POST' and 'DELETE' requests for locations on the `TripShow` component. On the user's profile page, they also have the option of deleting a trip, which makes a 'DELETE' request, deleting the entire trip and each location it contains. I added the functions `addTrip()` and `deleteTrip()` to hold the functionality for the 'POST' and 'DELETE' AJAX requests for trips.
 
+#### Location POST Request Breakdown
+Adding locations to the database required making two AJAX requests. The first being a 'POST' request from the front-end, handled by the `handleSubmit()` function in the `TripShow` component. The second request was made from the back-end, within the `Location` model. This was a 'GET' request made to the British Postcodes API, where the request contained the postcode of the location the user entered. With that postcode, this API, returned the corresponding geographic data from which the latitude and longitude coordinates were taken and stored as properties on that location.
 
-
-#### Example GET Request from our Competitions Component
-![Example GET Request]()
-
-#### Styling
-The styling for this application is made up of a combination of the Bulma framework, CSS, and the Animate.css library. Bulma is a framework for CSS, which is very useful for creating general page layouts, however, it is difficult to use this to apply specific styles to HTML elements. Therefore, I added classes and used these to overwrite some of the default Bulma styling in our `style.css` file.
+#### AJAX Requests for Adding a New Location
+![Location AJAX Request 1]()
+![Location AJAX Request 2]()
 
 ## Process Breakdown
 The process of creating this application can be broken down into a series of stages as follows:
 #### Research Stage:
 1. Brainstorming ideas for the application.
-2. Researching open-source APIs relevant to our idea.
+2. Researching open-source APIs relevant to my idea.
 3. Requesting an access token for these APIs.
 4. Testing AJAX requests to the APIs with Insomnia, to ensure sufficient data in the response.
 
@@ -77,14 +73,25 @@ The process of creating this application can be broken down into a series of sta
 4. Configure the module builder, Webpack, ie. installing dependencies, adding `app.js` and `index.html` etc.
 
 #### Development & Testing Stages:
+##### Back-End
+1. Build the models for each of the data sets, ie. User, Locations, Trips.
+2. Build the controllers to handle the incoming AJAX requests.
+3. Initialize the router and set the routes for each request on each controller.
+4. Test that each AJAX request receives the desired response or outcome, using Insomnia.
+
+##### Front-End
 1. Setup a backbone `index.html` template, in which to render the components.
 2. Build a router in the `app.js` file, containing the paths to each React component.
-3. Develop, test, and refactor each component.
-4. Style the application.
+3. Build the components. Ensure all AJAX requests are made to the correct paths to correspond with the routes setup on the back-end controllers.
+4. Test and refactor along the way.
+5. Style the components.
 
 #### Deployment & Presentation Stages:
 1. Deploy the application to Heroku.
 2. Present our application to the class.
+
+#### Styling
+The styling for this application is made up of a combination of the Bulma framework and CSS. Bulma is a framework for CSS, which is very useful for creating general page layouts, however, it is difficult to use this to apply specific styles to HTML elements. Therefore, I added classes and used these to overwrite some of the default Bulma styling in our `style.css` file.
 
 ## Challenges
 The biggest challenge of this project that we faced was related to time management. Given only two days to create our first React application, it was difficult to plan exactly how much content and functionality we had time to achieve. We decided rather than working separately and then merging our work into one app, we would pair code through the whole project. This way, we could ensure we agreed before adding new features and we could brainstorm about different approaches to solving problems.
