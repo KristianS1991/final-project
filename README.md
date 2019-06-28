@@ -34,7 +34,7 @@ I decided to create an application that allows a user to plan road trips in the 
 If the user decides to add a new trip, they are redirected to a page displaying a map of their current location. This page contains a form which allows you to add new locations to your trip. A pop up appears when you click the marker of a location, displaying the location name, and also giving you the option to remove the location. As each location is added or removed, the trip details and the directions (plotted on the map as a line) between locations are updated. A small table in the bottom right corner displays the total distance of the trip and the number of stops on the trip.
 
 #### Website Navigation
-![UserShow to TripShow](https://i.imgur.com/oOuQR8J.png)
+![UserShow to TripShow](https://i.imgur.com/woGio33l.gif)
 
 #### Entity-Relationship Model
 Once a user registers, their data is stored in the SQL database. A user can then create multiple trips, each of which can have multiple locations. The trips are stored in the database as part of a one-to-many relationship, where each trip can have one user and each user can have many trips. Each trip is made up of different locations, which makes up another one-to-many relationship, where each location can have one trip and each trip can have many locations.
