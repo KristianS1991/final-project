@@ -1,7 +1,5 @@
 # SEI Project Four, Full-Stack Application - CheckPoint
 
-![UserShow to TripShow](https://i.imgur.com/BzquvI7m.png)
-
 ## Timeframe
 1 Week
 
