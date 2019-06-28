@@ -36,9 +36,6 @@ If the user decides to add a new trip, they are redirected to a page displaying 
 #### Website Navigation
 ![UserShow to TripShow](https://i.imgur.com/woGio33.gif)
 
-#### Editing a Trip
-![Editing a Trip](https://i.imgur.com/3q9ewO7.gif)
-
 #### Entity-Relationship Model
 Once a user registers, their data is stored in the SQL database. A user can then create multiple trips, each of which can have multiple locations. The trips are stored in the database as part of a one-to-many relationship, where each trip can have one user and each user can have many trips. Each trip is made up of different locations, which makes up another one-to-many relationship, where each location can have one trip and each trip can have many locations.
 
@@ -46,6 +43,9 @@ Once a user registers, their data is stored in the SQL database. A user can then
 To handle AJAX requests, we used the Axios Javascript library. The biggest difference between using Axios, rather than, `fetch()`, is that you save yourself the step of having to convert the response to a JSON object before manipulating it and setting it to state.
 
 Once the user has logged in, a `GET` request was made to the API I created to return the user's existing trips. Upon creating a new trip, a `POST` request is made to the API to add the trip and the user is then directed to the map display page where additional `POST` requests are made but this time for the locations the previous trip contains. On the map display page, `DELETE` requests are made when the user removes a location from a trip. I created the functions, `handleSubmit()` and `removeLocation()` to handle the functionality for the `POST` and `DELETE` requests for locations on the `TripShow` component. On the user's profile page, they also have the option of deleting a trip, which makes a `DELETE` request, deleting the entire trip and each location it contains. I added the functions `addTrip()` and `deleteTrip()` to hold the functionality for the `POST` and `DELETE` AJAX requests for trips.
+
+#### Editing a Trip
+![Editing a Trip](https://i.imgur.com/3q9ewO7.gif)
 
 #### Location POST Request Breakdown
 Adding locations to the database required making two AJAX requests. The first being a `POST` request from the front-end, handled by the `handleSubmit()` function in the `TripShow` component. The second request was made from the back-end, within the `Location` model. This was a `GET` request made to the British Postcodes API, where the request contained the postcode of the location the user entered. With that postcode, the API returned the corresponding geographic data from which the latitude and longitude coordinates were taken and stored as properties on that location. This method is wrapped by the `@post_load` decorator function, to ensure that the process happens after the deserialization of the location object. The `@post_load` function is imported from Marshmallow, an ORM library useful when handling complex data types.
