@@ -1,12 +1,6 @@
-# final-project
-
-For my final project, I created a fullstack app using MapBox that allows the user to plan out a trip anywhere in the UK. The user experience can be broken down as follows. After a user registers and log’s in, they are brought to their user profile, where they have the option to add a new trip, edit an existing trip, or delete an existing trip. If they decide to add a new trip, they are redirected to a page displaying a map of their current location. This page contains a form which allows you to add new locations to your trip. A pop up appears when you click the marker of a location, displaying the location name, and also giving you the option to remove the location. As each location is added or removed, the trip details and the directions (plotted on the map as a line) between locations are updated. A small table in the bottom right corner displays the total distance of the trip and the number of stops on the trip.
-
-I built this app starting with the back-end, utilizing Python, Flask, and PostgreSQL coupled with an SQL database. Then I proceeded to build the front-end, using JavaScript and React. The app also implements the MapBox and British Postcodes API’s for data related to new locations and routes to the map.
-
-I really enjoyed the entire development process of creating this app. From designing wireframes and then building their corresponding React components, to drawing entity-relationship models for each table and coding their models, controllers, and routes in Flask. 
-
 # SEI Project Four, Full-Stack Application - CheckPoint
+
+![UserShow to TripShow](https://i.imgur.com/BzquvI7m.png)
 
 ## Timeframe
 1 Week
@@ -41,7 +35,7 @@ I decided to create an application that allows a user to plan road trips in the 
 If the user decides to add a new trip, they are redirected to a page displaying a map of their current location. This page contains a form which allows you to add new locations to your trip. A pop up appears when you click the marker of a location, displaying the location name, and also giving you the option to remove the location. As each location is added or removed, the trip details and the directions (plotted on the map as a line) between locations are updated. A small table in the bottom right corner displays the total distance of the trip and the number of stops on the trip.
 
 #### Website Navigation
-![Football Data Centre]()
+![UserShow to TripShow](https://i.imgur.com/oOuQR8J.png)
 
 #### Entity-Relationship Model
 Once a user registers, their data is stored in the SQL database. A user can then create multiple trips, each of which can have multiple locations. The trips are stored in the database as part of a one-to-many relationship, where each trip can have one user and each user can have many trips. Each trip is made up of different locations, which makes up another one-to-many relationship, where each location can have one trip and each trip can have many locations.
@@ -54,7 +48,7 @@ Once the user has logged in, a 'GET' request was made to the API I created to re
 #### Location POST Request Breakdown
 Adding locations to the database required making two AJAX requests. The first being a 'POST' request from the front-end, handled by the `handleSubmit()` function in the `TripShow` component. The second request was made from the back-end, within the `Location` model. This was a 'GET' request made to the British Postcodes API, where the request contained the postcode of the location the user entered. With that postcode, this API, returned the corresponding geographic data from which the latitude and longitude coordinates were taken and stored as properties on that location.
 
-#### AJAX Requests for Adding a New Location
+##### AJAX Requests for Adding a New Location
 From `TripShow.js` Component:
 ![Location AJAX Request 1](https://i.imgur.com/ScxmVvk.png)
 
@@ -97,7 +91,16 @@ The process of creating this application can be broken down into a series of sta
 The styling for this application is made up of a combination of the Bulma framework and CSS. Bulma is a framework for CSS, which is very useful for creating general page layouts, however, it is difficult to use this to apply specific styles to HTML elements. Therefore, I added classes and used these to overwrite some of the default Bulma styling in our `style.css` file.
 
 ## Challenges
-The biggest challenge of this project that we faced was related to time management. Given only two days to create our first React application, it was difficult to plan exactly how much content and functionality we had time to achieve. We decided rather than working separately and then merging our work into one app, we would pair code through the whole project. This way, we could ensure we agreed before adding new features and we could brainstorm about different approaches to solving problems.
+One of the biggest challenges of this project was getting the map to display the route between each location. This proved to be an iterative, trial and error process requiring a lot of researching online. I discovered that with the latitude, longitude coordinate pairs for each location, I could format them into the query string of a URL and then send a request to the Mapbox GL JS API. The response is a geoJSON object containing multiple latitude, longitude pairs that make up the line between each location. I could then use these coordinates to plot a polyline on the map. This line is then updated each time a location is added or removed from the trip.
+
+##### Plotting the Route between Locations
+Getting the Directions & Coordinates:
+![Route Plotting Code 1](https://i.imgur.com/a3inRB2.png)
+
+Plotting the Polyline:
+![Route Plotting Code 2](https://i.imgur.com/XdbYy7y.png)
+
+A crucial web development skill I learned through this process was how important it is to be patient and give yourself a chance to thoroughly read through documentation. At first, I found myself skimming through documentation quickly to try and find an answer, but I began to realize I wasn't absorbing anything I was reading. Relaxing or taking a break is a good way to clear your head before reading through dense documentation. Tackling challenges gets a lot easier if you can notice when you're rushing and take a minute to relax.  
 
 ## Future Add-ons
-One extra feature we would have liked to add to this project is a search bar where the user can search for a specific football player. The search bar would have a dropdown of suggestions that the user could choose from. The user would then click on the player of interest and be redirected to a new page displaying that player's stats. Due to timing constraints, we did not get the opportunity to add this feature.
+One extra feature I would have liked to add to this project is a search bar where the user can search for a specific location. The search bar would have a dropdown of suggestions that the user could choose from. The user would then click on the location and have the option of adding this location to the trip. Another feature I would like to have added was a direction display, for what turns to take to get to each location. Due to timing constraints, we did not get the opportunity to add this feature.
