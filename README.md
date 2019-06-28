@@ -13,7 +13,6 @@ I really enjoyed the entire development process of creating this app. From desig
 
 ## Technologies Used
 * React
-* Webpack
 * JavaScript (ES6)
 * Python
 * Flask
@@ -22,6 +21,8 @@ I really enjoyed the entire development process of creating this app. From desig
 * HTML5
 * CSS
 * Bulma
+* MapBox GL JS
+* Webpack
 * GitHub
 
 ## Installation
@@ -32,22 +33,21 @@ I really enjoyed the entire development process of creating this app. From desig
 ## Project Scope
 For our final project, we were given a timeframe of one week to complete a full-stack application using React for the front-end and Flask (Python framework) for the back-end. To store our data, we were to use an SQL database and PostgreSQL as our relational database management system. This was our first project assigned where we were to implement a relational database. A relational database is simply a database that recognizes the relationships between stored groups of information. 
 
-We were to pick a theme, and create a full-stack application that handles the storage of user data in an SQL database. We were also required to use Webpack, as our module builder, for bundling and deployment purposes.
+We were to pick a theme, and create a full-stack application that handles the storage of user data in an SQL database. A user would need to be able to register, login, and based on the theme of the app, create some type of data that would be stored and recognized by the database as being related to that user. For bundling and deployment purposes, we were required to use the module builder Webpack.
 
 ## Project Overview
-We decided to create an application that displays up-to-date data for five professional football leagues in Europe. By implementing the football-data.org API, we were able to display stats for the clubs and standings in each league, and the roster of each club.
+I decided to create an application that allows a user to plan road trips in the UK. By implementing the Mapbox GL JS API, I built a site that lets the user create new trips or edit an existing trip. On the homepage, the user is prompted to register if they are not logged in. After registering, they are redirected to a login page. After logging in, the user is brought to the user's profile page. This page displays the user's existing trips, giving them the option to view, edit, or delete a trip. The user also has the option of creating a new trip. 
+
+If the user decides to add a new trip, they are redirected to a page displaying a map of their current location. This page contains a form which allows you to add new locations to your trip. A pop up appears when you click the marker of a location, displaying the location name, and also giving you the option to remove the location. As each location is added or removed, the trip details and the directions (plotted on the map as a line) between locations are updated. A small table in the bottom right corner displays the total distance of the trip and the number of stops on the trip.
 
 #### Website Navigation
 ![Football Data Centre]()
 
+#### Entity-Relationship Model
+Once a user registers, their data is stored in the SQL database. A user can then create multiple trips, each of which can have multiple locations. The trips are stored in the database as part of a one-to-many relationship, where each trip can have one user and each user can have many trips. Each trip is made up of different locations, which makes up another one-to-many relationship, where each location can have one trip and each trip can have many locations.
+
 #### Key Takeaways
 The main purpose of this project was to develop an introductory understanding of the React framework, as well as how to make AJAX requests to APIs and utilize the response. A big takeaway from this exercise was related to how data exists in React. We learned that in a React component, there are two main types of data: 'state' and 'props'. 'State' is data specific to that component, directly initialized within that component. 'Props' is data passed to a component by another component, usually a parent or sibling component.
-
-#### React Lifecycle
-The React lifecycle methods were another crucial topic we gained experience with. The basic setup of each React component starts with defining a class that is an extension of `React.component`. This is followed by creating the `constructor()` function and calling the `super()` function inside to pull down all relevant properties and methods from the base class. The state of the component is also defined within the constructor function. Next, the `render()` function, which is the only mandatory method for a React component, is defined. The `render()` function is responsible for rendering the content of the component to the user interface. The `render()` function runs during the mounting and updating of a component. When a component loads, the `componentDidMount()` function runs once and the component then re-renders. Anytime the state of the component is updated, the `componentDidUpdate()` function runs, and the component then re-renders.
-
-#### React Lifecycle Diagram
-![React Lifecycle]()
 
 #### AJAX Requests
 Another important topic we learned about during this project was AJAX requests. In the context of our project, an AJAX 'GET' request was made to the football-data.org API in order to obtain a response, which we could manipulate and apply to our webpage. An ideal location to make an AJAX request, if the page is not expected to be updated by the user, is within the `componentDidMount()` function. We made our 'GET' requests using the `fetch()` method, providing the API URL and an object containing the type of request and the authorization header as parameters. The `fetch()` call returns a promise, in the form of a response object, which is then converted into JSON, before the data of interest is stored in state. To change state within a component (besides manually changing it in the `constructor()` function), one must use the `.setState()` method. Also, if an error occurs when making an AJAX request, the `.catch()` method catches the error and allows the developer to display it for development purposes, and in some cases, display this error to the user, ie. invalid password, etc.
@@ -56,7 +56,7 @@ Another important topic we learned about during this project was AJAX requests. 
 ![Example GET Request]()
 
 #### Styling
-The styling for this application is made up of a combination of the Bulma framework, CSS, and the Animate.css library. Bulma is a framework for CSS, which is very useful for creating general page layouts, however, it is difficult to use this to apply specific styles to HTML elements. Therefore, we added classes and used these to overwrite some of the default Bulma styling in our `style.css` file. We then found an open-source CSS animation library online, and implemented some animations to bring our pages to life.
+The styling for this application is made up of a combination of the Bulma framework, CSS, and the Animate.css library. Bulma is a framework for CSS, which is very useful for creating general page layouts, however, it is difficult to use this to apply specific styles to HTML elements. Therefore, I added classes and used these to overwrite some of the default Bulma styling in our `style.css` file.
 
 ## Process Breakdown
 The process of creating this application can be broken down into a series of stages as follows:
@@ -79,7 +79,7 @@ The process of creating this application can be broken down into a series of sta
 4. Style the application.
 
 #### Deployment & Presentation Stages:
-1. Deploy the application to GitHub Pages.
+1. Deploy the application to Heroku.
 2. Present our application to the class.
 
 ## Challenges
