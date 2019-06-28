@@ -74,13 +74,14 @@ The process of creating this application can be broken down into a series of sta
 4. Configure the module builder, Webpack, ie. installing dependencies, adding `app.js` and `index.html` etc.
 
 #### Development & Testing Stages:
-##### Back-End
+##### Back-End (Flask, Python, SQL, PostgreSQL)
 1. Build the models for each of the data sets, ie. User, Location, Trip.
 2. Build the controllers to handle the incoming AJAX requests.
 3. Initialize the router and set the routes for each request on each controller.
-4. Test that each AJAX request receives the desired response or outcome, using Insomnia.
+4. Create the SQL database. Populate the database with a `seeds.py` file for testing.
+5. Test that each AJAX request receives the desired response or outcome, using Insomnia.
 
-##### Front-End
+##### Front-End (React, Javascript)
 1. Setup a backbone `index.html` template, in which to render the components.
 2. Build a router in the `app.js` file, containing the paths to each React component.
 3. Build the components. Ensure all AJAX requests are made to the correct paths to correspond with the routes setup on the back-end controllers.
