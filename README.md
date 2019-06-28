@@ -48,7 +48,7 @@ Adding locations to the database required making two AJAX requests. The first be
 
 ##### AJAX Requests for Adding a New Location
 From `TripShow.js` Component:
-![Location AJAX Request 1](https://i.imgur.com/ScxmVvk.png)
+![Location AJAX Request 1](https://i.imgur.com/6lGN5pR.png)
 
 From `Location.py` Model:
 ![Location AJAX Request 2](https://i.imgur.com/RhN6h70.png)
