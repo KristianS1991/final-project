@@ -57,7 +57,6 @@ class TripShow extends React.Component {
     })
       .then(res => this.setState({ trip: res.data, newLocation: true }))
       .catch((err) => this.setState({errors: err.response.data.error}))
-
   }
 
   componentDidMount() {

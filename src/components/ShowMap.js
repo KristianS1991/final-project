@@ -163,7 +163,6 @@ class ShowMap extends React.Component {
     })
 
     this.map.addLayer(this.point)
-
     this.animatePrep(polylineCoords)
   }
 
@@ -208,21 +207,18 @@ class ShowMap extends React.Component {
   }
 
   createURLstr() {
-
     const locations = this.props.locations
       .sort((a, b) => a.id - b.id)
       .map(location => `${location.longitude},${location.latitude}`)
       .join(';')
 
     this.getDirections(locations)
-
   }
 
   getDirections(coordinates) {
-
     axios.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}.json`, {
       params: {
-        access_token: 'pk.eyJ1Ijoia3JlZWRhIiwiYSI6ImNqdzd5cDcybDBwaDk0Ym80MWtyZWExdW4ifQ.7DAQG_E6Yzql2DamyP-_qg',
+        access_token: process.env.MAPBOX_TOKEN,
         geometries: 'geojson'
       }
     })
@@ -230,7 +226,6 @@ class ShowMap extends React.Component {
         this.generatePolyline(res.data.routes[0].geometry.coordinates)
       })
       .catch((err) => this.setState({errors: err}))
-
   }
 
   componentDidUpdate(prevProps) {
