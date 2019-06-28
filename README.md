@@ -15,6 +15,10 @@ I really enjoyed the entire development process of creating this app. From desig
 * React
 * Webpack
 * JavaScript (ES6)
+* Python
+* Flask
+* SQL
+* PostgreSQL
 * HTML5
 * CSS
 * Bulma
@@ -22,10 +26,13 @@ I really enjoyed the entire development process of creating this app. From desig
 
 ## Installation
 1. Clone or download the repository.
-2. Run `npm run serve` within the repository folder in the terminal.
+2. Run `yarn run:serve` within the repository folder in the terminal, to run the server.
+3. In another tab, within the same repository folder, run `yarn run:client`, to run the client.
 
 ## Project Scope
-For our second project, we were put into groups of two and given a timeframe of two days to complete a front-end application using React. We were to pick a theme, and implement a relevant API to populate our application with data. We were also required to use Webpack, as our module builder, for bundling and deployment purposes.
+For our final project, we were given a timeframe of one week to complete a full-stack application using React for the front-end and Flask (Python framework) for the back-end. To store our data, we were to use an SQL database and PostgreSQL as our relational database management system. This was our first project assigned where we were to implement a relational database. A relational database is simply a database that recognizes the relationships between stored groups of information. 
+
+We were to pick a theme, and create a full-stack application that handles the storage of user data in an SQL database. We were also required to use Webpack, as our module builder, for bundling and deployment purposes.
 
 ## Project Overview
 We decided to create an application that displays up-to-date data for five professional football leagues in Europe. By implementing the football-data.org API, we were able to display stats for the clubs and standings in each league, and the roster of each club.
