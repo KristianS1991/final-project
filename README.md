@@ -20,7 +20,7 @@
 
 ## Installation
 1. Clone or download the repository.
-2. Run `yarn run:serve` within the repository folder in the terminal, to run the server.
+2. Run `yarn run:server` within the repository folder in the terminal, to run the server.
 3. In another tab, within the same repository folder, run `yarn run:client`, to run the application.
 
 ## Project Scope
