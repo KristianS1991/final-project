@@ -10,6 +10,7 @@
 * Flask
 * SQL
 * PostgreSQL
+* Marshmallow
 * HTML5
 * CSS
 * Bulma
@@ -44,7 +45,7 @@ To handle AJAX requests, we used the Axios Javascript library. The biggest diffe
 Once the user has logged in, a 'GET' request was made to the API I created to return the user's existing trips. Upon creating a new trip, a 'POST' request is made to the API to add the trip and the user is then directed to the map display page where additional 'POST' requests are made but this time for the locations the previous trip contains. On the map display page, 'DELETE' requests are made when the user removes a location from a trip. I created the functions, `handleSubmit()` and `removeLocation()` to handle the functionality for the 'POST' and 'DELETE' requests for locations on the `TripShow` component. On the user's profile page, they also have the option of deleting a trip, which makes a 'DELETE' request, deleting the entire trip and each location it contains. I added the functions `addTrip()` and `deleteTrip()` to hold the functionality for the 'POST' and 'DELETE' AJAX requests for trips.
 
 #### Location POST Request Breakdown
-Adding locations to the database required making two AJAX requests. The first being a 'POST' request from the front-end, handled by the `handleSubmit()` function in the `TripShow` component. The second request was made from the back-end, within the `Location` model. This was a 'GET' request made to the British Postcodes API, where the request contained the postcode of the location the user entered. With that postcode, this API, returned the corresponding geographic data from which the latitude and longitude coordinates were taken and stored as properties on that location.
+Adding locations to the database required making two AJAX requests. The first being a 'POST' request from the front-end, handled by the `handleSubmit()` function in the `TripShow` component. The second request was made from the back-end, within the `Location` model. This was a 'GET' request made to the British Postcodes API, where the request contained the postcode of the location the user entered. With that postcode, the API returned the corresponding geographic data from which the latitude and longitude coordinates were taken and stored as properties on that location. This method is wrapped by the `@post_load` decorator function, to ensure that the process happens after the deserialization of the location object. The `@post_load` function is imported from Marshmallow, an ORM library useful when handling complex data types.
 
 ##### AJAX Requests for Adding a New Location
 From `TripShow.js` Component:
@@ -69,7 +70,7 @@ The process of creating this application can be broken down into a series of sta
 
 #### Development & Testing Stages:
 ##### Back-End
-1. Build the models for each of the data sets, ie. User, Locations, Trips.
+1. Build the models for each of the data sets, ie. User, Location, Trip.
 2. Build the controllers to handle the incoming AJAX requests.
 3. Initialize the router and set the routes for each request on each controller.
 4. Test that each AJAX request receives the desired response or outcome, using Insomnia.
