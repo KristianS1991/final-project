@@ -55,7 +55,10 @@ Once the user has logged in, a 'GET' request was made to the API I created to re
 Adding locations to the database required making two AJAX requests. The first being a 'POST' request from the front-end, handled by the `handleSubmit()` function in the `TripShow` component. The second request was made from the back-end, within the `Location` model. This was a 'GET' request made to the British Postcodes API, where the request contained the postcode of the location the user entered. With that postcode, this API, returned the corresponding geographic data from which the latitude and longitude coordinates were taken and stored as properties on that location.
 
 #### AJAX Requests for Adding a New Location
+From `TripShow.js` Component:
 ![Location AJAX Request 1](https://i.imgur.com/ScxmVvk.png)
+
+From `Location.py` Model:
 ![Location AJAX Request 2](https://i.imgur.com/RhN6h70.png)
 
 ## Process Breakdown
