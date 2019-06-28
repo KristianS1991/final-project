@@ -1,7 +1,6 @@
 import React from 'react'
 
 const Loading = () => {
-
   return (
     <section className="hero is-fullheight">
       <div className="hero-body has-text-centered is-vcentered">

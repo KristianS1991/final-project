@@ -41,11 +41,11 @@ class Login extends React.Component {
   render() {
     return (
       <section>
-        <section className="section">
-          <div className="container">
+        <section className="section add-flex">
+          <div className="container height-adjust-profile">
             <div className="columns is-centered">
               <div className="column is-half-desktop is-two-thirds-tablet">
-                <form onSubmit={this.handleSubmit}>
+                <form className="form-edit" onSubmit={this.handleSubmit}>
 
                   <div className="field">
                     <label className="label">Email</label>
@@ -65,7 +65,7 @@ class Login extends React.Component {
 
                   </div>
                   <br/>
-                  <button className="button is-danger submit-edit-button">Submit</button>
+                  <button className="button submit-edit-button">Submit</button>
                 </form>
               </div>
             </div>

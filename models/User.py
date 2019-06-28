@@ -31,7 +31,6 @@ class User(db.Entity):
 
         return token
 
-
 class UserSchema(Schema):
     id = fields.Int(dump_only=True)
     username = fields.Str(required=True)
@@ -44,7 +43,6 @@ class UserSchema(Schema):
     def generate_hash(self, plaintext):
         return bcrypt.hashpw(plaintext.encode('utf8'), bcrypt.gensalt(8)).decode('utf8')
 
-
     # `validates_schema` used for custom validations
     @validates_schema
     def check_passwords(self, data):
@@ -53,7 +51,6 @@ class UserSchema(Schema):
                 field_name='password_confirmation',
                 message=['Does not match']
             )
-
 
     @validates_schema
     def validate_username(self, data):
@@ -65,7 +62,6 @@ class UserSchema(Schema):
                 message=['Must be unique']
             )
 
-
     @validates_schema
     def validate_email(self, data):
         user = User.get(email=data.get('email'))
@@ -75,7 +71,6 @@ class UserSchema(Schema):
                 field_name='email',
                 message=['Must be unique']
             )
-
 
     # logic to perform AFTER validation, but BEFORE save
     # modify the data in some way

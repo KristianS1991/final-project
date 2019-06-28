@@ -6,7 +6,6 @@ import axios from 'axios'
 mapboxgl.accessToken = process.env.MAPBOX_TOKEN
 
 class ShowMap extends React.Component {
-
   constructor(props) {
     super(props)
 
@@ -20,13 +19,21 @@ class ShowMap extends React.Component {
   }
 
   componentDidMount() {
+    this.createMap()
+    this.markCurrLoc()
+    this.flyToView(this.currentLocation, 12)
+  }
+
+  createMap() {
     this.map = new mapboxgl.Map({
       container: this.mapCanvas,
       style: 'mapbox://styles/mapbox/streets-v9',
       zoom: this.props.zoom,
       center: this.props.center
     })
+  }
 
+  markCurrLoc() {
     const markerElement = document.createElement('div')
     markerElement.className = 'current-marker'
     markerElement.innerText = '🏠'
@@ -36,28 +43,26 @@ class ShowMap extends React.Component {
         .setLngLat([pos.coords.longitude,pos.coords.latitude])
         .addTo(this.map)
     })
+  }
 
+  flyToView(center, zoom) {
     this.map.flyTo({
-      center: this.currentLocation,
-      zoom: 12
+      center: center,
+      zoom: zoom
     })
   }
 
   updateMapView(location) {
     this.bounds.extend([location.longitude, location.latitude])
-
-    this.map.flyTo({
-      center: this.bounds.getCenter(),
-      zoom: 12
-    })
+    this.flyToView(this.bounds.getCenter(), 12)
   }
 
-  generateMarker(location) {
-
+  generatePopup(location) {
     const popupEl = document.createElement('DIV')
     const locationName = document.createElement('DIV')
     const button = document.createElement('BUTTON')
 
+    locationName.classList.add('popup-location')
     locationName.innerText = location.name
     button.innerText = 'Remove Location'
     button.onclick = () => this.props.removeLocation(location)
@@ -65,9 +70,14 @@ class ShowMap extends React.Component {
     popupEl.appendChild(locationName)
     popupEl.appendChild(button)
 
-    const popup = new mapboxgl.Popup({offset: 25})
+    return new mapboxgl.Popup({offset: 25})
       .setDOMContent(popupEl)
       .addTo(this.map)
+  }
+
+  //generate marker for a new location added to the trip
+  generateMarker(location) {
+    const popup = this.generatePopup(location)
 
     const marker = new mapboxgl.Marker()
       .setLngLat([location.longitude, location.latitude])
@@ -75,7 +85,6 @@ class ShowMap extends React.Component {
       .addTo(this.map)
 
     this.updateMapView(location)
-
     return marker
   }
 
@@ -149,7 +158,6 @@ class ShowMap extends React.Component {
     })
 
     this.map.addLayer(this.point)
-
     this.animatePrep(polylineCoords)
   }
 
@@ -169,7 +177,6 @@ class ShowMap extends React.Component {
     }
 
     this.animate()
-
   }
 
   animate() {
@@ -179,9 +186,9 @@ class ShowMap extends React.Component {
       turf.point(this.path[this.counter >= this.steps ? this.counter - 1 : this.counter]),
       turf.point(this.path[this.counter >= this.steps ? this.counter : this.counter + 1])
     )
-    //
+
     if(this.map.getSource('point')) this.map.getSource('point').setData(this.pointData)
-    //
+
     if (this.counter < this.steps) {
       requestAnimationFrame(this.animate)
     }
@@ -194,21 +201,18 @@ class ShowMap extends React.Component {
   }
 
   createURLstr() {
-
     const locations = this.props.locations
       .sort((a, b) => a.id - b.id)
       .map(location => `${location.longitude},${location.latitude}`)
       .join(';')
 
     this.getDirections(locations)
-
   }
 
   getDirections(coordinates) {
-
     axios.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}.json`, {
       params: {
-        access_token: 'pk.eyJ1Ijoia3JlZWRhIiwiYSI6ImNqdzd5cDcybDBwaDk0Ym80MWtyZWExdW4ifQ.7DAQG_E6Yzql2DamyP-_qg',
+        access_token: process.env.MAPBOX_TOKEN,
         geometries: 'geojson'
       }
     })
@@ -216,7 +220,6 @@ class ShowMap extends React.Component {
         this.generatePolyline(res.data.routes[0].geometry.coordinates)
       })
       .catch((err) => this.setState({errors: err}))
-
   }
 
   componentDidUpdate(prevProps) {
@@ -234,13 +237,12 @@ class ShowMap extends React.Component {
     return (
       <div>
         <div ref={el => this.mapCanvas = el} className="map" />
-        <div className="map-form-info">
+        <div className="map-form-info map-extra">
           <p>Total Distance: {this.state.distance} km</p>
           <p>Number of Stops: {this.props.locations.length}</p>
         </div>
       </div>
     )
-
   }
 }
 

@@ -34,7 +34,7 @@ class Register extends React.Component {
     return (
       <section>
         <section className="section">
-          <div className="container">
+          <div className="container height-adjust-profile">
             <div className="columns is-centered">
               <div className="column is-half-desktop is-two-thirds-tablet">
                 <form onSubmit={this.handleSubmit}>
@@ -44,7 +44,7 @@ class Register extends React.Component {
                     <div className="control">
                       <input className="input"
                         name="username"
-                        placeholder="eg: leela3000"
+                        placeholder="eg: User100"
                         onChange={this.handleChange} />
                     </div>
                     {this.state.errors.username && <div className="help is-danger">{this.state.errors.username}</div>}
@@ -55,7 +55,7 @@ class Register extends React.Component {
                     <div className="control">
                       <input className="input"
                         name="email"
-                        placeholder="eg: leela@planetexpress.nnyc" onChange={this.handleChange} />
+                        placeholder="eg: user@gmail.com" onChange={this.handleChange} />
                     </div>
                     {this.state.errors.email && <div className="help is-danger">{this.state.errors.email}</div>}
                   </div>
@@ -83,7 +83,7 @@ class Register extends React.Component {
                     </div>
                     {this.state.errors.password_confirmation && <div className="help is-danger">{this.state.errors.password_confirmation}</div>}
                   </div>
-                  <button className="button is-info submit-edit-button">Submit</button>
+                  <button className="button submit-edit-button">Submit</button>
                 </form>
               </div>
             </div>

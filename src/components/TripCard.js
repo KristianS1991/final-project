@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 
 // child component of userShow for displaying, linking and deleting the user's trips
 const TripCard = ({ id, name, locations, deleteTrip }) => {
-
   return (
     <article className="media">
       <Link to ={`/trips/${id}`}>

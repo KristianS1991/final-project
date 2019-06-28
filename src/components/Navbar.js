@@ -3,11 +3,9 @@ import { Link, withRouter } from 'react-router-dom'
 import Auth from '../lib/Auth'
 
 class Navbar extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = { active: false }
-
     this.logout = this.logout.bind(this)
     this.toggleActive = this.toggleActive.bind(this)
   }
@@ -42,18 +40,13 @@ class Navbar extends React.Component {
           </div>
           <div className={`navbar-menu ${this.state.active ? 'is-active' : ''}`}>
             <div className="navbar-end">
-
               <Link to="/aboutus" className="navbar-item">About Us</Link>
-
               {/* Right-hand links*/}
               {/* Method for Navbar components */}
               {Auth.isAuthenticated() && <Link to={`/users/${Auth.getPayload().sub}`} className="navbar-item">Profile</Link>}
-
               {!Auth.isAuthenticated() && <Link to="/login" className="navbar-item">Login</Link>}
-
               {/* Register and login will now disappear once logged in */}
               {Auth.isAuthenticated() && <a className="navbar-item" onClick={this.logout}>Logout</a>}
-
             </div>
           </div>
         </div>
