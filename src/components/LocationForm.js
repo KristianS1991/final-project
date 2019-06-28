@@ -2,7 +2,6 @@ import React from 'react'
 
 // child component of TripShow for inputing locations to a trip
 const LocationForm = ({ passedChange, passedSubmit }) => {
-
   return (
     <div className="map-form">
       <form className="form-input" onSubmit={passedSubmit}>
@@ -16,7 +15,6 @@ const LocationForm = ({ passedChange, passedSubmit }) => {
               onChange={passedChange} />
           </div>
         </div>
-
         <div className="field">
           <label className="label">Postcode</label>
           <div className="control">
@@ -27,7 +25,6 @@ const LocationForm = ({ passedChange, passedSubmit }) => {
               onChange={passedChange} />
           </div>
         </div>
-
         <button className="map-submit">Submit</button>
       </form>
     </div>

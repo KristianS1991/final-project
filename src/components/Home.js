@@ -3,17 +3,9 @@ import { Link } from 'react-router-dom'
 import Auth from '../lib/Auth'
 
 class Home extends React.Component {
-  constructor() {
-    super()
-
-    this.state = {
-
-    }
-  }
-
-  componentDidMount() {
-
-  }
+  // constructor() {
+  //   super()
+  // }
 
   render() {
     return (

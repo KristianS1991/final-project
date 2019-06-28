@@ -6,7 +6,6 @@ import axios from 'axios'
 mapboxgl.accessToken = process.env.MAPBOX_TOKEN
 
 class ShowMap extends React.Component {
-
   constructor(props) {
     super(props)
 
@@ -25,7 +24,6 @@ class ShowMap extends React.Component {
     this.flyToView(this.currentLocation, 12)
   }
 
-  //create the map
   createMap() {
     this.map = new mapboxgl.Map({
       container: this.mapCanvas,
@@ -35,7 +33,6 @@ class ShowMap extends React.Component {
     })
   }
 
-  // mark the current location
   markCurrLoc() {
     const markerElement = document.createElement('div')
     markerElement.className = 'current-marker'
@@ -48,7 +45,6 @@ class ShowMap extends React.Component {
     })
   }
 
-  //fly to the location of interest - either current location or new route
   flyToView(center, zoom) {
     this.map.flyTo({
       center: center,
@@ -89,7 +85,6 @@ class ShowMap extends React.Component {
       .addTo(this.map)
 
     this.updateMapView(location)
-
     return marker
   }
 
@@ -182,7 +177,6 @@ class ShowMap extends React.Component {
     }
 
     this.animate()
-
   }
 
   animate() {
@@ -192,9 +186,9 @@ class ShowMap extends React.Component {
       turf.point(this.path[this.counter >= this.steps ? this.counter - 1 : this.counter]),
       turf.point(this.path[this.counter >= this.steps ? this.counter : this.counter + 1])
     )
-    //
+
     if(this.map.getSource('point')) this.map.getSource('point').setData(this.pointData)
-    //
+
     if (this.counter < this.steps) {
       requestAnimationFrame(this.animate)
     }
@@ -249,7 +243,6 @@ class ShowMap extends React.Component {
         </div>
       </div>
     )
-
   }
 }
 

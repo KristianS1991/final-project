@@ -1,9 +1,7 @@
 import React from 'react'
-
 import Auth from '../lib/Auth'
 import ShowMap from './ShowMap'
 import LocationForm from './LocationForm'
-
 import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
 
@@ -62,10 +60,6 @@ class TripShow extends React.Component {
   componentDidMount() {
     axios.get(`/api/trips/${this.props.match.params.id}`)
       .then(res => this.setState({ trip: res.data }))
-  }
-
-  componentDidUpdate() {
-
   }
 
   render() {
