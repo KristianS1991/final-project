@@ -10,7 +10,6 @@ router = Blueprint('auth', __name__)
 @router.route('/register', methods=['POST'])
 @db_session
 def register():
-
     schema = UserSchema()
 
     try:
@@ -25,13 +24,10 @@ def register():
         'token': user.generate_token()
     })
 
-
 @router.route('/login', methods=['POST'])
 @db_session
 def login():
-
     data = request.get_json()
-
     user = User.get(email=data.get('email'))
 
     if not user or not user.is_password_valid(data.get('password')):
@@ -46,7 +42,6 @@ def login():
 #show route for particular order based on id
 @router.route('/users/<int:user_id>', methods=['GET'])
 @db_session
-
 def show(user_id):
     schema = UserSchema()
     user = User.get(id=user_id)
@@ -55,10 +50,3 @@ def show(user_id):
         abort(404)
 
     return schema.dumps(user)
-
-# @router.route('/profile', methods=['GET'])
-# @db_session
-# @secure_route
-# def profile():
-#     schema = UserSchema()
-#     return schema.dumps(g.current_user)
