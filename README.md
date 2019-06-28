@@ -98,7 +98,7 @@ The styling for this application is made up of a combination of the Bulma framew
 One of the biggest challenges of this project was getting the map to display the route between each location. This proved to be an iterative, trial and error process requiring a lot of researching online. I discovered that with the latitude, longitude coordinate pairs for each location, I could format them into the query string of a URL and then send a request to the Mapbox GL JS API. The response is a geoJSON object containing multiple latitude, longitude pairs that make up the line between each location. I could then use these coordinates to plot a polyline on the map. This line is then updated each time a location is added or removed from the trip.
 
 ##### Plotting the Route between Locations
-Getting the Directions & Coordinates:
+Getting the Polyline Coordinates:
 ![Route Plotting Code 1](https://i.imgur.com/eGo5IPd.png)
 
 Plotting the Polyline:
