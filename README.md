@@ -99,6 +99,7 @@ Getting the Directions & Coordinates:
 Plotting the Polyline:
 ![Route Plotting Code 2](https://i.imgur.com/fE6DIl7.png)
 
+## Key Takeaways
 A crucial web development skill I learned through this process was how important it is to be patient and give yourself a chance to thoroughly read through documentation. At first, I found myself skimming through documentation quickly to try and find an answer, but I began to realize I wasn't absorbing anything I was reading. Relaxing or taking a break is a good way to clear your head before reading through dense documentation. Tackling challenges gets a lot easier if you can notice when you're rushing and take a minute to relax.  
 
 ## Future Add-ons
