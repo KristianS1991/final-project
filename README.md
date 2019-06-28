@@ -39,6 +39,8 @@ If the user decides to add a new trip, they are redirected to a page displaying 
 #### Entity-Relationship Model
 Once a user registers, their data is stored in the SQL database. A user can then create multiple trips, each of which can have multiple locations. The trips are stored in the database as part of a one-to-many relationship, where each trip can have one user and each user can have many trips. Each trip is made up of different locations, which makes up another one-to-many relationship, where each location can have one trip and each trip can have many locations.
 
+![Entity-Relationship Model](https://i.imgur.com/JqhpSf6.png)
+
 #### AJAX Requests
 To handle AJAX requests, we used the Axios Javascript library. The biggest difference between using Axios, rather than, `fetch()`, is that you save yourself the step of having to convert the response to a JSON object before manipulating it and setting it to state.
 
