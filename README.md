@@ -23,6 +23,8 @@
 2. Run `yarn run:server` within the repository folder in the terminal, to run the server.
 3. In another tab, within the same repository folder, run `yarn run:client`, to run the application.
 
+The hosted version can be found here: https://bit.ly/2IPf5lK
+
 ## Project Scope
 For the final project, we were given a timeframe of one week to complete a full-stack application using React for the front-end and Flask (Python framework) for the back-end. To store our data, we were to use an SQL database and PostgreSQL as our relational database management system. This was our first project assigned where we were to implement a relational database. A relational database is simply a database that recognizes the relationships between stored groups of information. 
 
