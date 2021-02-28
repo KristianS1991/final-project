@@ -1,4 +1,4 @@
-# SEI Project Four, Full-Stack Application - CheckPoint
+# SEI Project 4, Full-Stack App - 2019
 
 ## Timeframe
 1 Week
